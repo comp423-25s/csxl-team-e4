@@ -45,6 +45,11 @@ export class CourseComponent {
           icon: 'groups'
         },
         {
+          label: 'Practice',
+          path: `/course/${this.route.snapshot.params['course_site_id']}/practice`,
+          icon: ''
+        },
+        {
           label: 'Settings',
           path: `/course/${this.route.snapshot.params['course_site_id']}/settings`,
           icon: 'settings'
@@ -61,6 +66,11 @@ export class CourseComponent {
           label: 'Roster',
           path: `/course/${this.route.snapshot.params['course_site_id']}/roster`,
           icon: 'groups'
+        },
+        {
+          label: 'Practice',
+          path: `/course/${this.route.snapshot.params['course_site_id']}/practice`,
+          icon: ''
         }
       ];
     }
