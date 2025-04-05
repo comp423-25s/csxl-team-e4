@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from ...models.academics.practice_test import AIResponse, AIRequest
-from backend.services.practice_test import generate_test, retrieve_response
+from backend.services.academics.practice_test import generate_test, retrieve_response
 from fastapi import HTTPException
 
 api = APIRouter(prefix="/api/academics/practice_test")
