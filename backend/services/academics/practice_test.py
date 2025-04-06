@@ -1,10 +1,7 @@
 from typing import Optional
 from backend.models.practice_test import AIResponse
 
-fake_responses_db = {
-    1: AIResponse(response_id=1, test="First response"),
-    2: AIResponse(response_id=2, test="Second response"),
-}
+fake_responses_db = {}
 
 def retrieve_response(response_id: int) -> Optional[AIResponse]:
     """Retrieve a specific AI response by ID."""
@@ -18,4 +15,7 @@ def delete_response(response_id: int) -> bool:
     return False
 
 def generate_test(text, image, file) -> str:
-    return "1. T/F is this fully implemented? Answer: False"
+    new_id = max(fake_responses_db.keys()) + 1
+    test = "1. T/F is this fully implemented? Answer: False"
+    fake_responses_db[new_id] = test
+    return test
