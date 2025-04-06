@@ -61,7 +61,13 @@ export class CourseComponent {
           label: 'Roster',
           path: `/course/${this.route.snapshot.params['course_site_id']}/roster`,
           icon: 'groups'
+        },
+        {
+          label: 'Practice',
+          path: `/course/${this.route.snapshot.params['course_site_id']}/practice`,
+          icon: 'groups'
         }
+
       ];
     }
   });

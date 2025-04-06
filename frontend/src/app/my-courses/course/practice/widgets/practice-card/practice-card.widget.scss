@@ -1,0 +1,29 @@
+::ng-deep .practice-card {
+    max-width: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  .practice-title {
+    font-weight: 600; // medium-bold
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  
+  .practice-description {
+    font-weight: 300; // lighter
+    font-size: 0.875rem;
+    color: #cccccc; // optional: softer color for description
+  }
+  
+  .practice-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+  

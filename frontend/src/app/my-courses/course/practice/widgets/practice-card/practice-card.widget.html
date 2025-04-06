@@ -1,0 +1,18 @@
+<mat-card class="practice-card surface-container-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title class="practice-title">{{ title }}</mat-card-title>
+    <mat-card-subtitle class=" practice-description">{{ description }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-actions class="practice-card-actions">
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [routerLink]="buttonRoute">
+      {{ buttonLabel }}
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+
