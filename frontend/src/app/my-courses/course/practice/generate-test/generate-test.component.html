@@ -1,1 +1,54 @@
-<p>generate-test works!</p>
+<div class="container">
+  <mat-pane>
+    <!-- Header -->
+    <mat-card-header id="pane-header">
+      <mat-card-title>Generate Practice Test</mat-card-title>
+    </mat-card-header>
+
+    <!-- Divider for visual separation -->
+    <mat-divider class="section-divider"></mat-divider>
+
+    <!-- Content -->
+    <mat-card-content class="pane-content">
+      <!-- Section: Materials -->
+      <div class="material-section">
+        <h3>Select Materials</h3>
+        <mat-list>
+          @for (item of materials; track item.title) {
+            <mat-list-item>
+              <div class="material-row">
+                <div class="material-info">
+                  <strong class="title">{{ item.title }}</strong>
+                  <span class="timestamp">{{ item.timestamp }}</span>
+                </div>
+                <div class="material-actions">
+                  <button mat-icon-button aria-label="Download">
+                    <mat-icon>download</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </mat-list-item>
+          }
+        </mat-list>
+      </div>
+
+      <!-- Section: Text Input -->
+      <div class="text-section">
+        <h3>Text Input</h3>
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput placeholder="Input" [(ngModel)]="inputText" />
+        </mat-form-field>
+      </div>
+
+      <!-- Button -->
+      <div class="generate-button-wrapper">
+        <button mat-raised-button color="primary">
+          Generate Test
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-pane>
+</div>

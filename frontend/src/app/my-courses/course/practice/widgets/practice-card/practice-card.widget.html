@@ -5,13 +5,23 @@
   </mat-card-header>
 
   <mat-card-actions class="practice-card-actions">
-    <button
-      mat-flat-button
-      color="primary"
-      type="button"
-      [routerLink]="buttonRoute">
-      {{ buttonLabel }}
-    </button>
+    @if (buttonRoute) {
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        [routerLink]="buttonRoute">
+        {{ buttonLabel }}
+      </button>
+    } @else {
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="clicked.emit()">
+        {{ buttonLabel }}
+      </button>
+    }
   </mat-card-actions>
 </mat-card>
 

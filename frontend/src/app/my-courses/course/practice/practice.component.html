@@ -11,8 +11,9 @@
           <app-practice-card
             [title]="'Generate Practice Test'"
             [description]="'Use provided and/or uploaded course resources to generate a practice test'"
-            [buttonLabel]="'Generate'">
-          ></app-practice-card>
+            [buttonLabel]="'Generate'"
+            (clicked)="goToGenerateTest()">
+          </app-practice-card>
           <app-practice-card
             [title]="'Upload Resource'"
             [description]="'Upload custom resource documents for better practice test generation'"
@@ -32,4 +33,5 @@
       </mat-card-content>
     </mat-pane>
   </div>
-  
+
+<router-outlet></router-outlet>

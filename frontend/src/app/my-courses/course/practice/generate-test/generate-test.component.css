@@ -1,0 +1,60 @@
+.container {
+  height: 100%;
+
+  ::ng-deep .mat-pane {
+    max-width: 100% !important;
+    min-height: 73vh;
+    margin-bottom: 32px !important;
+    margin-right: 32px !important;
+    
+    border-radius: 1rem;
+    background-color: #121212;
+    padding: 1.5rem;
+  }
+}
+
+.section-divider {
+  margin: 16px;
+  width: 100%;
+  max-width: 97%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #444;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.material-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.material-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.material-info .title {
+  font-weight: 600;
+  color: white;
+}
+
+.material-info .timestamp {
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+.material-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.material-actions button {
+  color: #bbb;
+}
+
