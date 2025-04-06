@@ -5,6 +5,7 @@
             [title]="'Generate Practice Test'"
             [description]="'Use provided and/or uploaded course resources to generate a practice test'"
             [buttonLabel]="'Generate'"
+            (clicked)="goToGenerateTest()"
           ></app-practice-card>
   
           <app-practice-card
@@ -29,3 +30,4 @@
     
   </mat-pane>
   
+  <router-outlet></router-outlet>

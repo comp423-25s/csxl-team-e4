@@ -1,1 +1,35 @@
-<p>generate-test works!</p>
+<div class="generate-wrapper">
+    <h2>Generate Practice Test</h2>
+  
+    <section class="material-section">
+      <h3>Select Materials</h3>
+      <mat-list>
+        <mat-list-item *ngFor="let item of materials">
+          <div class="material-info">
+            <span>{{ item.timestamp }}</span>
+            <strong>{{ item.title }}</strong>
+          </div>
+          <div class="material-actions">
+            <button mat-icon-button aria-label="Download">
+              <mat-icon>download</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </section>
+  
+    <section class="text-section">
+      <h3>Text Input</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput placeholder="Input" [(ngModel)]="inputText" />
+      </mat-form-field>
+    </section>
+  
+    <button mat-raised-button color="primary" class="generate-button">
+      Generate Test
+    </button>
+  </div>
+  

@@ -1,0 +1,32 @@
+.generate-wrapper {
+    background: #f9f7fd;
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  
+  .material-section,
+  .text-section {
+    margin-top: 2rem;
+  }
+  
+  .material-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .material-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .generate-button {
+    margin-top: 2rem;
+    background-color: #8260d6;
+    color: white;
+  }
+  
