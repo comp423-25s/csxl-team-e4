@@ -9,7 +9,7 @@
     
     border-radius: 1rem;
     background-color: #121212;
-    padding: 1.5rem;
+   
   }
 }
 
@@ -58,3 +58,20 @@
   color: #bbb;
 }
 
+.item-divider {
+  background-color: #333;
+  margin: 12px 0; 
+  height: 1px;
+}
+
+.pane-content {
+  padding: 1.5rem
+}
+
+.text-section {
+  padding: 1rem;
+}
+
+.generate-button-wrapper {
+  padding: 1rem;
+}
