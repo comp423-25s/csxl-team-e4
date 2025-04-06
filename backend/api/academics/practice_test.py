@@ -29,4 +29,4 @@ def delete_response(response_id: int):
     success = delete_response(response_id)
     if not success:
         raise HTTPException(status_code=404, detail="Response not found")
-    return {"message": f"Response {response_id} deleted successfully"}
+    return f"Response {response_id} deleted successfully"
