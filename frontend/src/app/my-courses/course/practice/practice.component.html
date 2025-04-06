@@ -1,24 +1,28 @@
-<mat-pane class="practice-pane-card" appearance="outlined">
-      <mat-card-content>
+  <div class="container">
+    <mat-pane>
+      <mat-card-header id="pane-header">
+        <mat-card-title>Practice</mat-card-title>
+      </mat-card-header>
+      <mat-divider class="section-divider"></mat-divider>
+
+      
+      <mat-card-content class="pane-content">
         <div class="practice-card-container">
           <app-practice-card
             [title]="'Generate Practice Test'"
             [description]="'Use provided and/or uploaded course resources to generate a practice test'"
-            [buttonLabel]="'Generate'"
+            [buttonLabel]="'Generate'">
           ></app-practice-card>
-  
           <app-practice-card
             [title]="'Upload Resource'"
             [description]="'Upload custom resource documents for better practice test generation'"
             [buttonLabel]="'Upload'"
           ></app-practice-card>
-  
           <app-practice-card
             [title]="'My Tests'"
             [description]="'View tests you have already generated and saved'"
             [buttonLabel]="'View Tests'"
           ></app-practice-card>
-  
           <app-practice-card
             [title]="'TA Approved Tests'"
             [description]="'View tests that have been approved by class teaching assistants'"
@@ -26,6 +30,6 @@
           ></app-practice-card>
         </div>
       </mat-card-content>
-    
-  </mat-pane>
+    </mat-pane>
+  </div>
   

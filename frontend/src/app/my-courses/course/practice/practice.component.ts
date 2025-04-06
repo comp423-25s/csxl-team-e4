@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { PracticeCardComponent } from './widgets/practice-card/practice-card.widget';
 import { SharedModule } from "../../../shared/shared.module";
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [PracticeCardComponent,MatCardModule,  SharedModule],
+  imports: [PracticeCardComponent,MatCardModule,MatDividerModule , SharedModule],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })

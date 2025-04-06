@@ -65,7 +65,7 @@ export class CourseComponent {
         {
           label: 'Practice',
           path: `/course/${this.route.snapshot.params['course_site_id']}/practice`,
-          icon: 'groups'
+          icon: 'auto_stories'
         }
 
       ];
