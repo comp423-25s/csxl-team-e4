@@ -1,5 +1,5 @@
 from typing import Optional
-from backend.models.practice_test import AIResponse
+from backend.models.academics.practice_test import AIResponse
 
 fake_responses_db = {}
 
