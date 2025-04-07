@@ -1,7 +1,11 @@
 from typing import Optional
 from backend.models.academics.practice_test import AIResponse
 
-fake_responses_db = {}
+#fake_responses_db = {}
+fake_responses_db = {
+    1: "Study Guide Unit 2 Topic 3",
+    2: "Study Guide Unit 2 Topic 4",
+    3: "Study Guide Unit 2 Topic 1"
 
 def get_AI_response(response_id: int) -> Optional[AIResponse]:
     """Retrieve a specific AI response by ID."""

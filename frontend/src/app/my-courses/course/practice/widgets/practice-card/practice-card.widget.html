@@ -1,0 +1,28 @@
+<mat-card class="practice-card surface-container-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title class="practice-title">{{ title }}</mat-card-title>
+    <mat-card-subtitle class=" practice-description">{{ description }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-actions class="practice-card-actions">
+    @if (buttonRoute) {
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        [routerLink]="buttonRoute">
+        {{ buttonLabel }}
+      </button>
+    } @else {
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="clicked.emit()">
+        {{ buttonLabel }}
+      </button>
+    }
+  </mat-card-actions>
+</mat-card>
+
+
