@@ -14,9 +14,6 @@ import {
   Router,
   RouterOutlet
 } from '@angular/router';import { PracticeTestService } from '../../../../services/practice-test.service';
-import { Router } from '@angular/router';
-
-
 
 
 @Component({
@@ -38,13 +35,12 @@ import { Router } from '@angular/router';
   styleUrl: './generate-test.component.css'
 })
 
-
-
-
 export class GenerateTestComponent {
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private practiceTestService: PracticeTestService
+
   ) {
     effect(() => {
       const url = this.router.url;
@@ -72,10 +68,6 @@ export class GenerateTestComponent {
     this.router.navigate(['result'], { relativeTo: this.route });
   }
 
-  constructor(
-    private practiceTestService: PracticeTestService,
-    private router: Router
-  ) {}
 
   downloadMaterial(item: any) {
     this.practiceTestService.getTest(item.id).subscribe({
@@ -102,7 +94,7 @@ export class GenerateTestComponent {
         const generatedId = res.response_id;
         this.inputText = '';
   
-        // 👇 Route to the page your partner made
+        
         this.router.navigate(['/my-courses/practice/view', generatedId]);
       },
       error: () => alert('Failed to generate test.')
