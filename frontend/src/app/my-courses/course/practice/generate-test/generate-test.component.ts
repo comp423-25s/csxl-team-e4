@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PracticeTestService } from '../../../../services/practice-test.service';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet
+} from '@angular/router';import { PracticeTestService } from '../../../../services/practice-test.service';
 import { Router } from '@angular/router';
 
 
@@ -18,6 +23,7 @@ import { Router } from '@angular/router';
   selector: 'app-generate-test',
   standalone: true,
   imports: [
+    RouterOutlet,
     SharedModule,
     CommonModule,
     FormsModule,
@@ -36,13 +42,35 @@ import { Router } from '@angular/router';
 
 
 export class GenerateTestComponent {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    effect(() => {
+      const url = this.router.url;
+      this.isResultPage.set(url.endsWith('/result'));
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isResultPage.set(this.router.url.endsWith('/result'));
+      }
+    });
+  }
+
   materials: { id: number; title: string }[] = [
     { id: 1, title: 'Study Guide Unit 2 Topic 3' },
     { id: 2, title: 'Study Guide Unit 2 Topic 4' },
     { id: 3, title: 'Study Guide Unit 2 Topic 1' }
   ];
+
   
   inputText = '';
+  readonly isResultPage = signal(false);
+
+  goToResultPage() {
+    this.router.navigate(['result'], { relativeTo: this.route });
+  }
 
   constructor(
     private practiceTestService: PracticeTestService,

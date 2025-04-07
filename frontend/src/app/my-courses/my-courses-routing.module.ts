@@ -22,6 +22,7 @@ import { OfficeHoursGetHelpComponent } from './course/office-hours/office-hours-
 import { SettingsComponent } from './course/settings/settings.component';
 import { OfficeHoursEditorComponent } from './course/office-hours/office-hours-editor/office-hours-editor.component';
 import { GenerateTestComponent } from './course/practice/generate-test/generate-test.component';
+import { GenerateTestResultComponent } from './course/practice/generate-test-result/generate-test-result.component';
 
 const routes: Routes = [
   MyCoursesPageComponent.Route,
@@ -46,7 +47,13 @@ const routes: Routes = [
       },
       {
         path: 'practice/generate',
-        component: GenerateTestComponent
+        component: GenerateTestComponent,
+        children: [
+          {
+            path: 'result',
+            component: GenerateTestResultComponent
+          }
+        ]
       }
     ]
   }
