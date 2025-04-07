@@ -21,13 +21,12 @@
                 <div class="material-row">
                   <div class="material-info">
                     <strong class="title">{{ item.title }}</strong>
-                    <span class="timestamp">{{ item.timestamp }}</span>
                   </div>
                   <div class="material-actions">
-                    <button mat-icon-button aria-label="Download">
+                    <button mat-icon-button aria-label="Download" (click)="downloadMaterial(item)">
                       <mat-icon>download</mat-icon>
                     </button>
-                    <button mat-icon-button aria-label="Delete">
+                    <button mat-icon-button aria-label="Delete" (click)="deleteMaterial(item)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </div>
@@ -46,7 +45,7 @@
       </div>
 
       <div class="generate-button-wrapper">
-        <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" (click)="generateNewTest()">
           Generate Test
         </button>
       </div>
