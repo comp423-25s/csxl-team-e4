@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-generate-test',
   standalone: true,
@@ -16,7 +18,9 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RouterLink,
+    RouterModule
   ],
   templateUrl: './generate-test.component.html',
   styleUrl: './generate-test.component.css'
