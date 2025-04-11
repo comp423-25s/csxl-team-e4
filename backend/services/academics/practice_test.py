@@ -1,25 +1,46 @@
 from typing import Optional
 from backend.models.academics.practice_test import AIResponse
+from backend.models.academics.practice_test import AIRequest
+from backend.services.openai import OpenAIService
+from backend.database import Session, db_session
+from backend.models.openai_test_response import OpenAITestResponse
 
-#fake_responses_db = {}
-fake_responses_db = {
-    1: "Study Guide Unit 2 Topic 3",
-    2: "Study Guide Unit 2 Topic 4",
-    3: "Study Guide Unit 2 Topic 1"
+class PracticeTestService:
+    _session: Session
+    _openai_svc: OpenAIService
 
-def get_AI_response(response_id: int) -> Optional[AIResponse]:
-    """Retrieve a specific AI response by ID."""
-    return fake_responses_db.get(response_id)
+    _fake_responses_db = {
+        1: "Study Guide Unit 2 Topic 3",
+        2: "Study Guide Unit 2 Topic 4",
+        3: "Study Guide Unit 2 Topic 1"
+    }
 
-def delete_AI_response(response_id: int) -> bool:
-    """Delete an AI response by ID."""
-    if response_id in fake_responses_db:
-        del fake_responses_db[response_id]
-        return True
-    return False
+    def __init__(self, openai_svc: OpenAIService, session: Session):
+        self._openai_svc = openai_svc
+        self._session = session
 
-def make_test(text, image=None, file=None):
-    new_id = max(fake_responses_db.keys(), default=0) + 1
-    test = "1. T/F is this fully implemented? Answer: False"
-    fake_responses_db[new_id] = test
-    return (new_id, test)
+    def get_response(self, response_id: int) -> Optional[AIResponse]:
+        result = self._fake_responses_db.get(response_id)
+        if result is None:
+            return None
+        return AIResponse(response_id=response_id, test=result)
+
+    def delete_response(self, response_id: int) -> bool:
+        if response_id in self._fake_responses_db:
+            del self._fake_responses_db[response_id]
+            return True
+        return False
+
+    def generate_test(self, req: AIRequest) -> AIResponse:
+        new_id = max(self._fake_responses_db.keys(), default=0) + 1
+        
+        system_prompt = "You are a helpful teaching assistant generating practice test questions."
+
+        ai_generated_test = self._openai_svc.prompt(
+            system_prompt=system_prompt,
+            user_prompt=req.text,
+            response_model=str  # or a model with just one field if you prefer
+        )
+        
+        self._fake_responses_db[new_id] = ai_generated_test
+        return AIResponse(response_id=new_id, test=ai_generated_test)
