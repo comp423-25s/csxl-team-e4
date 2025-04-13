@@ -5,8 +5,13 @@
       </mat-card-header>
       <mat-divider class="section-divider"></mat-divider>
 
-      
       <mat-card-content class="pane-content">
+        
+        <mat-card-subtitle>
+          <p class="subsection1">Resources</p>
+        </mat-card-subtitle>
+
+
         <div class="practice-card-container">
           <app-practice-card
             [title]="'Generate Practice Test'"
@@ -14,16 +19,31 @@
             [buttonLabel]="'Generate'"
             (clicked)="goToGenerateTest()">
           </app-practice-card>
+
           <app-practice-card
             [title]="'Upload Resource'"
             [description]="'Upload custom resource documents for better practice test generation'"
             [buttonLabel]="'Upload'"
           ></app-practice-card>
+
+
+        </div>
+
+        
+
+        <mat-card-subtitle>
+          <p class="subsection2">Generated Tests</p>
+        </mat-card-subtitle>
+
+        <div class="practice-card-container">
+
+
           <app-practice-card
             [title]="'My Tests'"
             [description]="'View tests you have already generated and saved'"
             [buttonLabel]="'View Tests'"
           ></app-practice-card>
+
           <app-practice-card
             [title]="'TA Approved Tests'"
             [description]="'View tests that have been approved by class teaching assistants'"

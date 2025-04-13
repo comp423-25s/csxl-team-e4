@@ -1,0 +1,73 @@
+@if (!isResultPage()) {
+    <div class="container">
+      <mat-pane>
+  
+        <mat-card-header id="pane-header">
+          <mat-card-title>Generate Practice Test</mat-card-title>
+        </mat-card-header>
+  
+        <mat-divider class="section-divider"></mat-divider>
+  
+        <mat-card-content class="pane-content">
+          <div class="material-section">
+            <h3>Select Materials</h3>
+
+            <div class ="scrollable-resources">
+            <mat-list>
+              @for (item of materials; track item.id) {
+                <div class="material-item">
+                  @if (item !== materials[0]) {
+                    <mat-divider class="item-divider"></mat-divider>
+                  }
+                  <mat-list-item>
+                    <div class="material-row">
+                      
+                      <div class="material-left">
+                        <button mat-icon-button (click)="toggleSelect(item.id)">
+                          <mat-icon>{{ isSelected(item.id) ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+                        </button>
+                        <strong class="title">{{ item.title }}</strong>
+                      </div>
+  
+                      
+                      <div class="material-actions">
+                        <button mat-icon-button (click)="downloadMaterial(item)">
+                          <mat-icon>download</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="deleteMaterial(item)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </div>
+  
+                    </div>
+                  </mat-list-item>
+                </div>
+              }
+            </mat-list>
+        </div>
+    
+    
+      </div>
+          <div class="nav-footer">
+            
+            <button mat-icon-button disabled>
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+  
+            <div class="progress-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              
+            </div>
+  
+            
+            <button mat-icon-button [routerLink]="['../input']">
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+  
+        </mat-card-content>
+      </mat-pane>
+    </div>
+  }
+  

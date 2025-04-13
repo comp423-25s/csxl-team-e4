@@ -1,0 +1,140 @@
+.container {
+    height: 100%;
+  
+    ::ng-deep .mat-pane {
+        display: flex;
+        flex-direction: column;
+        min-height: 73vh;
+        background-color: #121212;
+        border-radius: 1rem;
+        max-width: 100% !important;
+        margin-bottom: 32px !important;
+        margin-right: 32px !important;
+      }
+  }
+  .scrollable-resources {
+    max-height: 400px;     
+    overflow-y: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-right: 8px;    
+  }
+
+  .section-divider {
+    margin: 16px;
+    width: 100%;
+    max-width: 97%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #444;
+  }
+
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 0.5rem;
+  }
+  
+  .progress-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: gray;
+    opacity: 0.4;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .dot.active {
+    opacity: 1;
+    background-color: white; 
+  }
+  
+
+  .prompt-section {
+    width: 100%;
+    ;
+  }
+  
+  .prompt-box {
+    width: 100%;
+    display: block;
+  }
+  
+  .prompt-box textarea {
+    width: 100% !important;
+    resize: vertical;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .pane-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  
+
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .format-card {
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #1e1e1e;
+    color: white;
+    border: 2px solid #555;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .format-card.selected {
+    border-color: #cfbcff;
+    background-color: #2d2d2d;
+  }
+  
+  .input-main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .generate-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  /* Style the button inside */
+  .generate-button button {
+    color: #3c1c74;
+    background-color: #cfbcff;
+    border-radius: 12px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    text-transform: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .generate-button button:hover {
+    background-color: #c3aff4;
+  }

@@ -12,6 +12,18 @@
   }
 }
 
+.subsection1 {
+  /* Top right bottom left */ 
+  margin: 10px 0px 0px 30px;
+
+}
+
+.subsection2 {
+  /* Top right bottom left */ 
+  margin: 0px 0px 0px 30px;
+
+}
+
 .practice-card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
