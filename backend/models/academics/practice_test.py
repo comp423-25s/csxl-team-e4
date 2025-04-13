@@ -13,3 +13,6 @@ class AIResponse(BaseModel):
     """Outputs the test as a string"""
     response_id: int
     test: str
+
+class OpenAPIResponse(BaseModel):
+    test: str

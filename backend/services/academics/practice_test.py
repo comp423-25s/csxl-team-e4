@@ -1,9 +1,9 @@
-from typing import Optional
-from backend.models.academics.practice_test import AIResponse
-from backend.models.academics.practice_test import AIRequest
+from typing import Optional, Annotated
+from backend.models.academics.practice_test import AIResponse, AIRequest, OpenAPIResponse
 from backend.services.openai import OpenAIService
 from backend.database import Session, db_session
 from backend.models.openai_test_response import OpenAITestResponse
+from fastapi import Depends
 
 class PracticeTestService:
     _session: Session
@@ -15,9 +15,13 @@ class PracticeTestService:
         3: "Study Guide Unit 2 Topic 1"
     }
 
-    def __init__(self, openai_svc: OpenAIService, session: Session):
-        self._openai_svc = openai_svc
+    def __init__(
+        self,
+        session: Annotated[Session, Depends(db_session)],
+        openai_svc: Annotated[OpenAIService, Depends()],
+    ):
         self._session = session
+        self._openai_svc = openai_svc
 
     def get_response(self, response_id: int) -> Optional[AIResponse]:
         result = self._fake_responses_db.get(response_id)
@@ -39,8 +43,8 @@ class PracticeTestService:
         ai_generated_test = self._openai_svc.prompt(
             system_prompt=system_prompt,
             user_prompt=req.text,
-            response_model=str  # or a model with just one field if you prefer
+            response_model=OpenAPIResponse
         )
         
         self._fake_responses_db[new_id] = ai_generated_test
-        return AIResponse(response_id=new_id, test=ai_generated_test)
+        return AIResponse(response_id=new_id, test=ai_generated_test.test)

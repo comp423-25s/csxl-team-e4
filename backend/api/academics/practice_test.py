@@ -5,7 +5,8 @@ from backend.services.academics.practice_test import PracticeTestService
 
 api = APIRouter(prefix="/api/academics/practice_test")
 
-@api.get("/retrieve_response/{response_id}", tags=["Academics"], response_model=Optional[AIResponse])
+
+@api.get("/retrieve_response/{response_id}", tags=["Academics"], response_model=AIResponse)
 def get_response(
     response_id: int,
     svc: Annotated[PracticeTestService, Depends()]
