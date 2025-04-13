@@ -7,6 +7,7 @@ fake_responses_db = {
     2: "Study Guide Unit 2 Topic 4",
     3: "Study Guide Unit 2 Topic 1"
 }
+
 def get_AI_response(response_id: int) -> Optional[AIResponse]:
     """Retrieve a specific AI response by ID."""
     return fake_responses_db.get(response_id)

@@ -5,6 +5,7 @@ import { GenerateTestResponse } from '../models/test-models'; // adjust path if 
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +20,7 @@ export class PracticeTestService {
   getTest(testID: number): Observable<any> {
     return this.http.get(`${this.baseURL}/retrieve_response/${testID}`);
   }
+
   generateTest(data: {
     material: string;
     prompt: string;
