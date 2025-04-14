@@ -14,6 +14,7 @@ resources = [
 ]
 
 def insert_fake_resources(session: Session, pdf_dir: str = None, course_id: str = "comp110"):
+    session.query(ResourceEntity).delete()
     pdf_dir = pdf_dir or "backend/sample-pdfs"
     for r in resources:
         full_path = os.path.join(pdf_dir, r.file_name)

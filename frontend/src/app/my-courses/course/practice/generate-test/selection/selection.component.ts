@@ -11,12 +11,15 @@ import { FormArray, FormControl } from '@angular/forms';
 import { PracticeTestService } from '../../../../../services/practice-test.service';
 import { PracticeTestFormService } from '../../../../../services/practice-test-form.service';
 import { FormsModule } from '@angular/forms';
+import { ResourceService, Resource } from 'src/app/services/resource.service';
+
 import { 
   ActivatedRoute,
   NavigationEnd,
   Router,
   RouterModule,
 } from '@angular/router';
+import { RippleRef } from '@angular/material/core';
 
 @Component({
   selector: 'app-selection',
@@ -37,55 +40,45 @@ import {
 })
 export class SelectionComponent {
   constructor(
-      private router: Router,
-      private route: ActivatedRoute,
-      private practiceTestService: PracticeTestService,
-      private practiceTestFormService: PracticeTestFormService
-  
-    ) {
-      effect(() => {
-        const url = this.router.url;
-        this.isResultPage.set(url.endsWith('/result'));
-      });
-  
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          this.isResultPage.set(this.router.url.endsWith('/result'));
-        }
-      });
-    }
+    private router: Router,
+    private route: ActivatedRoute,
+    private practiceTestService: PracticeTestService,
+    private practiceTestFormService: PracticeTestFormService,
+    private resourceService: ResourceService
+  ) {
+    // Simplified — no more dynamic course_id
+    this.resourceService.getResources().subscribe({
+      next: (res) => this.resources.set(res),
+      error: () => alert('Failed to load resources.')
+    });
 
-    form = this.practiceTestFormService.getForm();
-
-    get materialArray(): FormArray {
-      return this.form.get('material') as FormArray;
-    }
-    
-    toggleSelect(id: number) {
-      const materials = this.materialArray;
-      const index = materials.value.indexOf(id);
-      if (index === -1) {
-        materials.push(new FormControl(id));
-      } else {
-        materials.removeAt(index);
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isResultPage.set(this.router.url.endsWith('/result'));
       }
+    });
+  }
+
+  form = this.practiceTestFormService.getForm();
+  resources = signal<Resource[]>([]);
+
+  get materialArray(): FormArray {
+    return this.form.get('material') as FormArray;
+  }
+
+  toggleSelect(id: number) {
+    const materials = this.materialArray;
+    const index = materials.value.indexOf(id);
+    if (index === -1) {
+      materials.push(new FormControl(id));
+    } else {
+      materials.removeAt(index);
     }
-    
-    isSelected(id: number): boolean {
-      return this.materialArray?.value?.includes(id) ?? false;
-    }
-    
-  materials: { id: number; title: string }[] = [
-    { id: 1, title: 'Study Guide Unit 2 Topic 3' },
-    { id: 2, title: 'Study Guide Unit 2 Topic 4' },
-    { id: 3, title: 'Study Guide Unit 2 Topic 1' },
-    { id: 4, title: 'Study Guide Unit 2 Topic 2' },
-    { id: 5, title: 'Study Guide Unit 2 Topic 5' },
-    { id: 6, title: 'Study Guide Unit 2 Topic 6' },
-    { id: 7, title: 'Study Guide Unit 2 Topic 7' },
-    { id: 8, title: 'Study Guide Unit 2 Topic 8' },
-    { id: 9, title: 'Study Guide Unit 2 Topic 9' }
-  ];
+  }
+
+  isSelected(id: number): boolean {
+    return this.materialArray?.value?.includes(id) ?? false;
+  }
 
   readonly isResultPage = signal(false);
 
@@ -93,20 +86,24 @@ export class SelectionComponent {
     this.router.navigate(['result'], { relativeTo: this.route });
   }
 
-  downloadMaterial(item: any) {
-    this.practiceTestService.getTest(item.id).subscribe({
-      next: (res) => {
-        console.log('Downloaded:', res);
-        alert(`Downloaded "${item.title}"`);
+  downloadMaterial(item: Resource) {
+    this.resourceService.downloadResource(item.id).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = item.file_name;
+        a.click(); // trigger download
+        window.URL.revokeObjectURL(url);
       },
       error: () => alert('Download failed.')
     });
   }
 
-  deleteMaterial(item: any) {
-    this.practiceTestService.deleteTest(item.id).subscribe({
+  deleteMaterial(item: Resource) {
+    this.resourceService.deleteResource(item.id).subscribe({
       next: () => {
-        this.materials = this.materials.filter(m => m.id !== item.id);
+        this.resources.set(this.resources().filter(r => r.id !== item.id));
       },
       error: () => alert('Delete failed.')
     });
@@ -117,7 +114,7 @@ export class SelectionComponent {
       this.form.markAllAsTouched();
       return;
     }
-    // model of data to be sent to the backend
+
     const payload = this.form.value;
 
     this.practiceTestService.generateTest(payload).subscribe({

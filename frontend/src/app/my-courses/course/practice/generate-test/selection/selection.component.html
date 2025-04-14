@@ -14,9 +14,10 @@
 
             <div class ="scrollable-resources">
             <mat-list>
-              @for (item of materials; track item.id) {
+              @for (item of resources(); track item.id; let i = $index) {
                 <div class="material-item">
-                  @if (item !== materials[0]) {
+                  <!-- first item has no divider -->
+                  @if (i !== 0) {
                     <mat-divider class="item-divider"></mat-divider>
                   }
                   <mat-list-item>
