@@ -67,6 +67,7 @@ with Session(engine) as session:
     office_hours_data.insert_fake_data(session)
     hiring_data.insert_fake_data(session)
     article_data.insert_fake_data(session)
+    resource_data.insert_fake_resources(session, "backend/sample_pdfs")
 
     resource_data.insert_fake_resources(session, getenv("PDF_DIR"))
     practice_test_data.insert_fake_data(session)
