@@ -65,10 +65,5 @@ class PracticeTestEntity(EntityBase):
         """Converts the practice test entity to an AIResponse model"""
         return AIResponse(
             response_id=self.resource_id,
-            test=self.test_contents,
-            prompt=self.user_prompt,
-            topics=[
-                "Data Structures"
-            ],  # Can be parsed from test or added as column later
-            format="MCQ, Short Answer",  # Same here, placeholder
+            test=self.test_contents
         )
