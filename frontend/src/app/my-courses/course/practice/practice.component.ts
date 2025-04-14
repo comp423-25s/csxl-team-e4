@@ -41,6 +41,7 @@ export class PracticeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isInsideGenerate = this.router.url.includes('/practice/generate');
     this.router.events.subscribe(() => {
       this.isInsideGenerate = this.router.url.includes('/practice/generate');
     });

@@ -10,7 +10,10 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './generate-test-result.component.html',
-  styleUrl: './generate-test-result.component.css'
+  styleUrl: './generate-test-result.component.css',
+  host: {
+    class: 'generate-test-container'
+  }
 })
 export class GenerateTestResultComponent implements OnInit {
   testData: any = null;

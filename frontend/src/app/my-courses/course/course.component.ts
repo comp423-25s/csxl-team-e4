@@ -67,7 +67,6 @@ export class CourseComponent {
           path: `/course/${this.route.snapshot.params['course_site_id']}/practice`,
           icon: 'auto_stories'
         }
-
       ];
     }
   });
