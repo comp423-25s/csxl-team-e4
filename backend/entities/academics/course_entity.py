@@ -7,6 +7,8 @@ from ..entity_base import EntityBase
 from ...models.academics import Course
 from ...models.academics import CourseDetails
 
+
+
 __authors__ = ["Ajay Gandecha"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
@@ -37,6 +39,11 @@ class CourseEntity(EntityBase):
 
     # NOTE: This field establishes a one-to-many relationship between the course and section tables.
     sections: Mapped[list["SectionEntity"]] = relationship(
+        back_populates="course", cascade="all,delete"
+    )
+
+    # NOTE: This field establishes a one-to-many relationship between the course and resource tables.
+    resources: Mapped[list["ResourceEntity"]] = relationship(
         back_populates="course", cascade="all,delete"
     )
 
@@ -91,3 +98,4 @@ class CourseEntity(EntityBase):
             credit_hours=self.credit_hours,
             sections=[section.to_model() for section in self.sections],
         )
+from .resource_entity import ResourceEntity
