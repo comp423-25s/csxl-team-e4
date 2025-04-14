@@ -4,6 +4,10 @@ from backend.services.openai import OpenAIService
 from backend.database import Session, db_session
 from backend.models.openai_test_response import OpenAITestResponse
 from fastapi import Depends
+from sqlalchemy.orm import Session as SQLAlchemySession
+from backend.entities.academics.practice_test_entity import PracticeTestEntity
+from sqlalchemy import select
+import datetime
 
 class PracticeTestService:
     _session: Session
@@ -24,20 +28,22 @@ class PracticeTestService:
         self._openai_svc = openai_svc
 
     def get_response(self, response_id: int) -> Optional[AIResponse]:
-        result = self._fake_responses_db.get(response_id)
-        if result is None:
-            return None
-        return AIResponse(response_id=response_id, test=result)
+        query = select(PracticeTestEntity).filter(PracticeTestEntity.resource_id == response_id)
+        entity = self._session.scalars(query).one_or_none()
 
-    def delete_response(self, response_id: int) -> bool:
-        if response_id in self._fake_responses_db:
-            del self._fake_responses_db[response_id]
-            return True
-        return False
+        if entity is None:
+            return None
+        return entity.to_response_model()
+
+    def delete_response(self, resource_id: int) -> bool:
+        entity = self._session.get(PracticeTestEntity, resource_id)
+        if entity is None:
+            return None
+        else:
+            self._session.delete(entity)
+            self._session.commit()
 
     def generate_test(self, req: AIRequest) -> AIResponse:
-        new_id = max(self._fake_responses_db.keys(), default=0) + 1
-        
         system_prompt = "You are a helpful teaching assistant generating practice test questions."
 
         ai_generated_test = self._openai_svc.prompt(
@@ -46,5 +52,16 @@ class PracticeTestService:
             response_model=OpenAPIResponse
         )
         
-        self._fake_responses_db[new_id] = ai_generated_test
-        return AIResponse(response_id=new_id, test=ai_generated_test.test)
+        practice_test = PracticeTestEntity(
+            user="Sally Student",
+            course="Comp 110",
+            user_prompt=req.text,
+            test_contents=ai_generated_test.test,
+            created_at=datetime.now(),
+            instructor_approved=False
+        )
+
+        self._session.add(practice_test)
+        self._session.commit()
+
+        return AIResponse(response_id=practice_test.resource_id, test=practice_test.test_contents)
