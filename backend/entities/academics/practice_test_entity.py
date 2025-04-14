@@ -4,8 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Enum as SQLAlchemyEnum
 from ..entity_base import EntityBase 
 from typing import Self
-from ...models.academics.practice_test import AIResponse 
-from ...models.academics import OpenAPIResponse
+from ...models.academics.practice_test import AIRequest, AIResponse, OpenAPIResponse
 
 class PracticeTestEntity(EntityBase):
     """Serves as the database model schema defining the shape of the `PracticeTest` table"""

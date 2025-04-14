@@ -7,7 +7,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session as SQLAlchemySession
 from backend.entities.academics.practice_test_entity import PracticeTestEntity
 from sqlalchemy import select
-import datetime
+from datetime import datetime
 
 
 class PracticeTestService:
@@ -37,6 +37,7 @@ class PracticeTestService:
         else:
             self._session.delete(entity)
             self._session.commit()
+            return True
 
     def generate_test(self, req: AIRequest) -> AIResponse:
         system_prompt = "You are a helpful teaching assistant generating practice test questions."
