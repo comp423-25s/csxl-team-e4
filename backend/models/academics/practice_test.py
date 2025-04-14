@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from fastapi import UploadFile
+from datetime import datetime
 
 
 class AIRequest(BaseModel):
@@ -15,7 +16,12 @@ class AIResponse(BaseModel):
     """Outputs the test as a string"""
 
     response_id: int
-    test: str
+    user: str
+    course: str
+    user_prompt: str
+    test_contents: str
+    created_at: datetime = datetime.now()
+    instructor_approved: bool = False
 
 
 class OpenAPIResponse(BaseModel):
