@@ -16,9 +16,6 @@ class AIResponse(BaseModel):
 
     response_id: int
     test: str
-    prompt: str
-    topics: List[str]
-    format: str
 
 
 class OpenAPIResponse(BaseModel):
