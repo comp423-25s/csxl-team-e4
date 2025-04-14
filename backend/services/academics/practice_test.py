@@ -1,5 +1,9 @@
 from typing import Optional, Annotated
-from backend.models.academics.practice_test import AIResponse, AIRequest, OpenAPIResponse
+from backend.models.academics.practice_test import (
+    AIResponse,
+    AIRequest,
+    OpenAPIResponse,
+)
 from backend.services.openai import OpenAIService
 from backend.database import Session, db_session
 from backend.models.openai_test_response import OpenAITestResponse
@@ -23,7 +27,9 @@ class PracticeTestService:
         self._openai_svc = openai_svc
 
     def get_response(self, response_id: int) -> Optional[AIResponse]:
-        query = select(PracticeTestEntity).filter(PracticeTestEntity.resource_id == response_id)
+        query = select(PracticeTestEntity).filter(
+            PracticeTestEntity.resource_id == response_id
+        )
         entity = self._session.scalars(query).one_or_none()
 
         if entity is None:
@@ -39,24 +45,28 @@ class PracticeTestService:
             self._session.commit()
 
     def generate_test(self, req: AIRequest) -> AIResponse:
-        system_prompt = "You are a helpful teaching assistant generating practice test questions."
+        system_prompt = (
+            "You are a helpful teaching assistant generating practice test questions."
+        )
 
         ai_generated_test = self._openai_svc.prompt(
             system_prompt=system_prompt,
             user_prompt=req.text,
-            response_model=OpenAPIResponse
+            response_model=OpenAPIResponse,
         )
-        
+
         practice_test = PracticeTestEntity(
             user="Sally Student",
             course="Comp 110",
             user_prompt=req.text,
             test_contents=ai_generated_test.test,
             created_at=datetime.now(),
-            instructor_approved=False
+            instructor_approved=False,
         )
 
         self._session.add(practice_test)
         self._session.commit()
 
-        return AIResponse(response_id=practice_test.resource_id, test=practice_test.test_contents)
+        return AIResponse(
+            response_id=practice_test.resource_id, test=practice_test.test_contents
+        )
