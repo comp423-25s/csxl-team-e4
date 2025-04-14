@@ -1,22 +1,25 @@
-import { Component } from '@angular/core';
-import { PracticeCardComponent } from './widgets/practice-card/practice-card.widget';
-import { SharedModule } from '../../../shared/shared.module';
-import { MatCardModule } from '@angular/material/card';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { GenerateTestComponent } from './generate-test/generate-test.component';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-
-
-
+import { SharedModule } from '../../../shared/shared.module';
+import { PracticeCardComponent } from './widgets/practice-card/practice-card.widget';
+import { GenerateTestComponent } from './generate-test/generate-test.component';
 
 @Component({
   selector: 'app-practice',
   standalone: true,
-  imports: [PracticeCardComponent, MatCardModule, SharedModule, RouterModule, MatDividerModule],
+  imports: [
+    PracticeCardComponent,
+    MatCardModule,
+    SharedModule,
+    RouterModule,
+    MatDividerModule
+  ],
   templateUrl: './practice.component.html',
   styleUrl: './practice.component.css'
 })
-export class PracticeComponent {
+export class PracticeComponent implements OnInit {
   /** Route information to be used in the routing module */
   public static Route = {
     path: 'practice',
@@ -30,10 +33,18 @@ export class PracticeComponent {
     ]
   };
 
+  isInsideGenerate = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(() => {
+      this.isInsideGenerate = this.router.url.includes('/practice/generate');
+    });
+  }
 
   goToGenerateTest() {
     this.router.navigate(['generate'], { relativeTo: this.route });

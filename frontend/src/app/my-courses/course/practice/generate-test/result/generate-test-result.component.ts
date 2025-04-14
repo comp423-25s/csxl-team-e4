@@ -24,7 +24,7 @@ export class GenerateTestResultComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.http
-      .get(`/api/academics/practice-test/retrieve_response/${id}`)
+      .get(`/api/academics/practice_test/retrieve_response/${id}`)
       .subscribe({
         next: (data) => {
           this.testData = data;

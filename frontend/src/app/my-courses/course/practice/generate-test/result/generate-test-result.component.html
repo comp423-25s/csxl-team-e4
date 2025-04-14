@@ -1,26 +1,31 @@
-<div class="container" *ngIf="!isLoading && testData">
-  <div class="left-column">
-    <div class="summary-card">
-      <h3>Practice Test #{{ testData.response_id }}</h3>
-      <p class="timestamp">Generated just now</p>
+@if (!isLoading && testData) {
+  <div class="container">
+    <div class="left-column">
+      <div class="summary-card">
+        <h3>Practice Test #{{ testData.response_id }}</h3>
+        <p class="timestamp">Generated just now</p>
 
-      <h4>Prompt</h4>
-      <p>{{ testData.prompt }}</p>
+        <h4>Prompt</h4>
+        <p>{{ testData.prompt }}</p>
 
-      <h4>Topics</h4>
-      <ul>
-        <li *ngFor="let topic of testData.topics">{{ topic }}</li>
-      </ul>
+        <h4>Topics</h4>
+        <ul>
+          @for (topic of testData.topics; track topic) {
+            <li>{{ topic }}</li>
+          }
+        </ul>
 
-      <h4>Format</h4>
-      <p>{{ testData.format }}</p>
+        <h4>Format</h4>
+        <p>{{ testData.format }}</p>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="test-preview">
+        <pre>{{ testData.test }}</pre>
+      </div>
+      <button mat-raised-button class="download-button">Download</button>
     </div>
   </div>
+}
 
-  <div class="right-column">
-    <div class="test-preview">
-      <pre>{{ testData.test }}</pre>
-    </div>
-    <button mat-raised-button class="download-button">Download</button>
-  </div>
-</div>
