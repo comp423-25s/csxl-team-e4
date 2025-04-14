@@ -1,29 +1,26 @@
-<div class="container">
-    <div class="left-column">
-      <div class="summary-card">
-        <h3>Practice Test #4</h3>
-        <p class="timestamp">Created at 12:43PM, Thursday, 3/27</p>
-  
-        <h4>Prompt</h4>
-        <p>I want a test covering recursion, dependency injection (DI), and these design patterns: Factory Method, Abstract Factory...</p>
-  
-        <h4>Topics</h4>
-        <ul>
-          <li>Dependency Injection (DI)</li>
-          <li>Design Patterns</li>
-          <li>Recursion</li>
-        </ul>
-  
-        <h4>Format</h4>
-        <p>MCQ, Practical Application, Code Writing, Short Answer, Code Tracing</p>
-      </div>
-    </div>
-  
-    <div class="right-column">
-      <div class="test-preview">
-        <iframe src="/path-to-preview.pdf" width="100%" height="100%"></iframe>
-      </div>
-      <button mat-raised-button class="download-button">Download</button>
+<div class="container" *ngIf="!isLoading && testData">
+  <div class="left-column">
+    <div class="summary-card">
+      <h3>Practice Test #{{ testData.response_id }}</h3>
+      <p class="timestamp">Generated just now</p>
+
+      <h4>Prompt</h4>
+      <p>{{ testData.prompt }}</p>
+
+      <h4>Topics</h4>
+      <ul>
+        <li *ngFor="let topic of testData.topics">{{ topic }}</li>
+      </ul>
+
+      <h4>Format</h4>
+      <p>{{ testData.format }}</p>
     </div>
   </div>
-  
+
+  <div class="right-column">
+    <div class="test-preview">
+      <pre>{{ testData.test }}</pre>
+    </div>
+    <button mat-raised-button class="download-button">Download</button>
+  </div>
+</div>
