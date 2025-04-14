@@ -6,6 +6,7 @@ from ..entity_base import EntityBase
 from typing import Self
 from ...models.academics.practice_test import AIRequest, AIResponse, OpenAPIResponse
 
+
 class PracticeTestEntity(EntityBase):
     """Serves as the database model schema defining the shape of the `PracticeTest` table"""
 
@@ -62,4 +63,12 @@ class PracticeTestEntity(EntityBase):
     # Method to convert to a response model
     def to_response_model(self) -> AIResponse:
         """Converts the practice test entity to an AIResponse model"""
-        return AIResponse(response_id=self.resource_id, test=self.test_contents)
+        return AIResponse(
+            response_id=self.resource_id,
+            test=self.test_contents,
+            prompt=self.user_prompt,
+            topics=[
+                "Data Structures"
+            ],  # Can be parsed from test or added as column later
+            format="MCQ, Short Answer",  # Same here, placeholder
+        )

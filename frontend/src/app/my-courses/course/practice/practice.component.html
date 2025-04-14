@@ -1,43 +1,37 @@
+@if (!isInsideGenerate) {
   <div class="container">
     <mat-pane>
       <mat-card-header id="pane-header">
         <mat-card-title>Practice</mat-card-title>
       </mat-card-header>
+
       <mat-divider class="section-divider"></mat-divider>
 
       <mat-card-content class="pane-content">
-        
         <mat-card-subtitle>
           <p class="subsection1">Resources</p>
         </mat-card-subtitle>
-
 
         <div class="practice-card-container">
           <app-practice-card
             [title]="'Generate Practice Test'"
             [description]="'Use provided and/or uploaded course resources to generate a practice test'"
             [buttonLabel]="'Generate'"
-            (clicked)="goToGenerateTest()">
-          </app-practice-card>
+            (clicked)="goToGenerateTest()"
+          ></app-practice-card>
 
           <app-practice-card
             [title]="'Upload Resource'"
             [description]="'Upload custom resource documents for better practice test generation'"
             [buttonLabel]="'Upload'"
           ></app-practice-card>
-
-
         </div>
-
-        
 
         <mat-card-subtitle>
           <p class="subsection2">Generated Tests</p>
         </mat-card-subtitle>
 
         <div class="practice-card-container">
-
-
           <app-practice-card
             [title]="'My Tests'"
             [description]="'View tests you have already generated and saved'"
@@ -53,5 +47,7 @@
       </mat-card-content>
     </mat-pane>
   </div>
+
+}
 
 <router-outlet></router-outlet>

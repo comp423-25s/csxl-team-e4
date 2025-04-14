@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
-
 
 @Component({
   selector: 'app-generate-test',
@@ -11,4 +10,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
   templateUrl: './generate-test.component.html',
   styleUrl: './generate-test.component.css'
 })
-export class GenerateTestComponent {}
+export class GenerateTestComponent {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  goToResult(testId: string) {
+    const courseId = this.route.snapshot.paramMap.get('course_site_id');
+    this.router.navigate([
+      `/my-courses/course/${courseId}/practice/generate/result`,
+      testId
+    ]);
+  }
+}
