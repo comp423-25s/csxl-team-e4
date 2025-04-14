@@ -27,6 +27,7 @@ from ..test.services.academics import course_data, term_data, section_data
 from ..test.services.office_hours import office_hours_data
 from ..test.services.academics.hiring import hiring_data
 from ..test.services.articles import article_data
+from ..test.services import resource_data
 from ..test.services.academics import practice_test_data
 
 __authors__ = ["Kris Jordan", "Ajay Gandecha"]
@@ -66,8 +67,9 @@ with Session(engine) as session:
     office_hours_data.insert_fake_data(session)
     hiring_data.insert_fake_data(session)
     article_data.insert_fake_data(session)
-    practice_test_data.insert_fake_data(session)
 
+    resource_data.insert_fake_resources(session, getenv("PDF_DIR"))
+    practice_test_data.insert_fake_data(session)
 
     # Commit changes to the database
     session.commit()
