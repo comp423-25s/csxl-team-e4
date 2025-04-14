@@ -6,6 +6,8 @@ from backend.entities.academics.course_entity import CourseEntity
 from ..entity_base import EntityBase
 from ...models.academics import Course
 from ...models.academics import CourseDetails
+from ...models.academics.resource import Resource
+
 
 
 class ResourceEntity(EntityBase):
@@ -23,3 +25,14 @@ class ResourceEntity(EntityBase):
     file_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
     course_id: Mapped[str] = mapped_column(String, ForeignKey("academics__course.id"), nullable=False)
     course: Mapped["CourseEntity"] = relationship(back_populates="resources")
+
+    # Not including file_data b/c that is a raw binary file
+    def to_model(self) -> Resource:
+        return Resource(
+            id=self.id,
+            title=self.title,
+            file_name=self.file_name,
+
+
+
+        )

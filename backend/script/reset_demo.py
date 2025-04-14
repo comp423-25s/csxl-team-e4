@@ -69,7 +69,7 @@ with Session(engine) as session:
     article_data.insert_fake_data(session)
     resource_data.insert_fake_resources(session, "backend/sample_pdfs")
 
-    resource_data.insert_fake_resources(session, getenv("PDF_DIR"))
+    resource_data.insert_fake_resources(session, "backend/sample_pdfs")
     practice_test_data.insert_fake_data(session)
 
     # Commit changes to the database
