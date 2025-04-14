@@ -1,0 +1,123 @@
+.container {
+    height: 100%;
+  
+    ::ng-deep .mat-pane {
+      max-width: 100% !important;
+      min-height: 73vh;
+      margin-bottom: 32px !important;
+      margin-right: 32px !important;
+      border-radius: 1rem;
+      background-color: #121212;
+      display: flex;
+      flex-direction: column;
+     
+    }
+  }
+
+  .scrollable-resources {
+    height: 370px;
+    overflow-y: auto;
+    padding-right: 8px;
+    flex-shrink: 0;
+  }
+  
+  
+  .section-divider {
+    margin: 16px;
+    width: 100%;
+    max-width: 97%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #444;
+  }
+  
+  .material-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .material-left {
+    display: flex;
+    align-items: center; 
+    gap: 12px;    
+  }
+  
+  .material-left .title {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+  
+  .material-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .material-info .title {
+    font-weight: 600;
+    color: white;
+  }
+  
+  /*
+  .material-info .timestamp {
+    font-size: 0.85rem;
+    color: #bbb;
+  }
+  */
+  
+  .material-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .material-actions button {
+    color: #bbb;
+  }
+  
+  .item-divider {
+    background-color: #333;
+    margin: 12px 0; 
+    height: 1px;
+  }
+  
+  .pane-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+
+  
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 0.5rem;
+  }
+  
+  .progress-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: gray;
+    opacity: 0.4;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .dot.active {
+    opacity: 1;
+    background-color: white; 
+  }
+  

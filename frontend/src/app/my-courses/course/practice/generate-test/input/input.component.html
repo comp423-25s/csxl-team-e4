@@ -1,0 +1,76 @@
+@if (!isResultPage()) {
+  <div class="container">
+    <mat-pane>
+
+      <mat-card-header id="pane-header">
+        <mat-card-title>Generate Practice Test</mat-card-title>
+      </mat-card-header>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <mat-card-content class="pane-content">
+
+        <div class="input-main-content">
+
+          <h3>Specify Format</h3>
+
+          <div class="format-grid">
+            @for (option of testFormatOptions; track option) {
+              <div
+                class="format-card"
+                [class.selected]="formatSelected(option)"
+                (click)="toggleFormat(option)"
+              >
+                {{ option }}
+              </div>
+            }
+          </div>
+
+          <div class="prompt-section">
+            <mat-form-field appearance="outline" class="prompt-box">
+              <mat-label>
+                Enter a prompt that fully details the test you wish to generate
+              </mat-label>
+              <textarea
+                matInput
+                rows="8"
+                [formControl]="promptControl"
+              ></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class ="generate-button">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="generateNewTest()"
+            >
+              Generate Test
+            </button>
+
+        </div>
+
+          
+
+        </div>
+
+        <div class="nav-footer">
+          <button mat-icon-button [routerLink]="['../']">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+
+          <div class="progress-dots">
+            <span class="dot"></span>
+            <span class="dot active"></span>
+          </div>
+
+          <button mat-icon-button disabled>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+
+      </mat-card-content>
+
+    </mat-pane>
+  </div>
+}

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { GenerateTestResponse } from '../models/test-models'; // adjust path if needed
 
 
 
@@ -19,12 +20,13 @@ export class PracticeTestService {
   getTest(testID: number): Observable<any> {
     return this.http.get(`${this.baseURL}/retrieve_response/${testID}`);
   }
-  generateTest(inputText: string): Observable<any> {
-    return this.http.post(`${this.baseURL}/generate_test`, {
-      text: inputText,
-      image: null,
-      file: null
-    });
+
+  generateTest(data: {
+    material: string;
+    prompt: string;
+    formats: string[];
+  }) {
+    return this.http.post<GenerateTestResponse>('/api/practice-tests', data);
   }
 }
 

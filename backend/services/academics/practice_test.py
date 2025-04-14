@@ -9,15 +9,10 @@ from backend.entities.academics.practice_test_entity import PracticeTestEntity
 from sqlalchemy import select
 import datetime
 
+
 class PracticeTestService:
     _session: Session
     _openai_svc: OpenAIService
-
-    _fake_responses_db = {
-        1: "Study Guide Unit 2 Topic 3",
-        2: "Study Guide Unit 2 Topic 4",
-        3: "Study Guide Unit 2 Topic 1"
-    }
 
     def __init__(
         self,
