@@ -7,8 +7,6 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class PracticeTestFormService {
   form: FormGroup;
 
-
-
   // We gon inject the form builder service into input
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -30,7 +28,7 @@ export class PracticeTestFormService {
     if (index === -1) {
       formats.push(this.fb.control(format));
     } else {
-      formats.removeAt(index)
+      formats.removeAt(index);
     }
   }
 
@@ -39,5 +37,3 @@ export class PracticeTestFormService {
     this.form.setControl('formats', this.fb.array([]));
   }
 }
-
-
