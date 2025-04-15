@@ -19,10 +19,11 @@ export class PracticeTestService {
   }
 
   generateTest(data: { material: string; prompt: string; formats: string[] }) {
+    const formattedPrompt = `Given these formats: ${data.formats.join(', ')}, generate a practice test with the following instructions: ${data.prompt}`;
     console.log('received');
     return this.http.post<GenerateTestResponse>(
       `${this.baseURL}/generate_test`,
-      { text: data.prompt }
+      { text: formattedPrompt }
     );
   }
 }
