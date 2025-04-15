@@ -67,5 +67,6 @@ class PracticeTestService:
 
         self._session.add(practice_test)
         self._session.commit()
+        self._session.refresh(practice_test)
 
         return practice_test.to_response_model()
