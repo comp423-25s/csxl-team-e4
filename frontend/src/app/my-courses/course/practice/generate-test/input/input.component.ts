@@ -92,7 +92,9 @@ export class InputComponent {
     this.practiceTestService.generateTest(payload).subscribe({
       next: (res) => {
         this.practiceTestFormService.resetForm();
-        this.router.navigate(['../result'], { relativeTo: this.route });
+        this.router.navigate(['../result', res.response_id], {
+          relativeTo: this.route
+        });
       },
       error: () => alert('Failed to generate test.')
     });
