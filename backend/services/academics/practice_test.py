@@ -67,7 +67,6 @@ class PracticeTestService:
 
         self._session.add(practice_test)
         self._session.commit()
+        self._session.refresh(practice_test)
 
-        return AIResponse(
-            response_id=practice_test.resource_id, test=practice_test.test_contents
-        )
+        return practice_test.to_response_model()

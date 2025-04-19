@@ -66,9 +66,10 @@ class PracticeTestEntity(EntityBase):
         return AIResponse(
             response_id=self.resource_id,
             test=self.test_contents,
-            prompt=self.user_prompt,
-            topics=[
-                "Data Structures"
-            ],  # Can be parsed from test or added as column later
-            format="MCQ, Short Answer",  # Same here, placeholder
+            user=self.user,
+            course=self.course,
+            user_prompt=self.user_prompt,
+            test_contents=self.test_contents,
+            created_at=self.created_at,
+            instructor_approved=self.instructor_approved,
         )
