@@ -7,10 +7,10 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class PracticeTestFormService {
   form: FormGroup;
 
-  // We gon inject the form builder service into input
+  // We inject the form builder service into input
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      material: this.fb.array([], Validators.required),
+      resource_ids: this.fb.array([], Validators.required),
       prompt: ['', Validators.required],
       formats: this.fb.array([], Validators.required)
     });
