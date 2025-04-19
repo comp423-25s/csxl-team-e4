@@ -55,6 +55,7 @@ class PracticeTestService:
             "You are a helpful teaching assistant generating practice test questions using the provided user input. Output the questions in clean LaTeX format, along with an answer key section at the end. "
         )
         user_prompt = f"""
+        Make sure you include the full LaTex boilerplate in your response.
         The test should have the following format(s): {format_string}.
         Generate a test with the following instructions: {req.prompt}.
         The test should factor in information from the following resources: {resource_txt}
