@@ -16,7 +16,6 @@ class AIResponse(BaseModel):
     """Outputs the test as a string"""
 
     response_id: int
-    test: str
     user: str
     course: str
     user_prompt: str

@@ -65,7 +65,6 @@ class PracticeTestEntity(EntityBase):
         """Converts the practice test entity to an AIResponse model"""
         return AIResponse(
             response_id=self.resource_id,
-            test=self.test_contents,
             user=self.user,
             course=self.course,
             user_prompt=self.user_prompt,
