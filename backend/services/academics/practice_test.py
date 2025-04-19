@@ -1,4 +1,7 @@
-from typing import Optional, Annotated
+from typing import List, Optional, Annotated
+import pymupdf
+
+from backend.entities.academics.resource_entity import ResourceEntity
 from backend.models.academics.practice_test import (
     AIResponse,
     AIRequest,
@@ -46,20 +49,29 @@ class PracticeTestService:
             return True
 
     def generate_test(self, req: AIRequest) -> AIResponse:
+        resource_txt = self.resources_to_text(req.resource_ids)
+        format_string = ", ".join(req.formats)
         system_prompt = (
-            "You are a helpful teaching assistant generating practice test questions."
+            "You are a helpful teaching assistant generating practice test questions using the provided user input. Output the questions in clean LaTeX format, along with an answer key section at the end. "
         )
+        user_prompt = f"""
+        Make sure you include the full LaTex boilerplate in your response.
+        The test should have the following format(s): {format_string}.
+        Generate a test with the following instructions: {req.prompt}.
+        The test should factor in information from the following resources: {resource_txt}
+
+        """
 
         ai_generated_test = self._openai_svc.prompt(
             system_prompt=system_prompt,
-            user_prompt=req.text,
+            user_prompt=user_prompt,
             response_model=OpenAPIResponse,
         )
 
         practice_test = PracticeTestEntity(
             user="Sally Student",
-            course="Comp 110",
-            user_prompt=req.text,
+            course="COMP 110",
+            user_prompt=user_prompt,
             test_contents=ai_generated_test.test,
             created_at=datetime.now(),
             instructor_approved=False,
@@ -70,3 +82,33 @@ class PracticeTestService:
         self._session.refresh(practice_test)
 
         return practice_test.to_response_model()
+
+    def clean_latex(self, text:  str) -> str:
+        cleaned = text.replace("\\\\", "\\")
+        cleaned = cleaned.replace("“", '"').replace("”", '"').replace("’", "'")
+        cleaned = cleaned.replace("\\n", "\n")
+        return cleaned
+    
+    def extract_text_from_blob(self, blob: bytes) -> str:
+        """Helper function to extract text from a PDF blob"""
+        text = ""
+        # parses the blob as a PDF file
+        with pymupdf.open(stream=blob, filetype="pdf") as doc:
+            for page in doc:
+                text += page.get_text()
+            return text
+        
+    def resources_to_text(self, resource_ids: List[int]):
+        """Actually extract text from the selected resources"""
+        # run a sql query to get the resources selected from our table, then run the helper method on the file_data (blob)
+        selected = select(ResourceEntity).where(ResourceEntity.id.in_(resource_ids))
+        resources = self._session.scalars(selected).all()
+        
+        resource_text = []
+        for resource in resources:
+            text = self.extract_text_from_blob(resource.file_data)
+            resource_text.append(f"=== {resource.title} ===\n{text}")
+        return "\n\n".join(resource_text)
+
+
+

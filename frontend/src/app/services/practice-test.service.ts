@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GenerateTestResponse } from '../models/test-models'; // adjust path if needed
+import { GenerateTestResponse } from '../models/test-models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,14 @@ export class PracticeTestService {
     return this.http.get(`${this.baseURL}/retrieve_response/${testID}`);
   }
 
-  generateTest(data: { material: string; prompt: string; formats: string[] }) {
-    const formattedPrompt = `Given these formats: ${data.formats.join(', ')}, generate a practice test with the following instructions: ${data.prompt}`;
-    console.log('received');
+  generateTest(data: { prompt: string; formats: string[], resource_ids: number[] }) {
     return this.http.post<GenerateTestResponse>(
       `${this.baseURL}/generate_test`,
-      { text: formattedPrompt }
+      {
+        prompt: data.prompt,
+        formats: data.formats,
+        resource_ids: data.resource_ids
+      }
     );
   }
 }

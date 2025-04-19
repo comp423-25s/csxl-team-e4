@@ -1,15 +1,14 @@
 from pydantic import BaseModel
-from typing import List, Optional
-from fastapi import UploadFile
+from typing import List
 from datetime import datetime
 
 
 class AIRequest(BaseModel):
     """Requires user to input text to make a request, also allows them to upload a image or file"""
 
-    text: str
-    image: Optional[UploadFile] = None
-    file: Optional[UploadFile] = None
+    prompt: str
+    formats: List[str]
+    resource_ids: List[int]
 
 
 class AIResponse(BaseModel):
