@@ -58,7 +58,7 @@ class PracticeTestService:
 
         practice_test = PracticeTestEntity(
             user="Sally Student",
-            course="Comp 110",
+            course="COMP 110",
             user_prompt=req.text,
             test_contents=ai_generated_test.test,
             created_at=datetime.now(),
