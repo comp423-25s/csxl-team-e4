@@ -26,6 +26,9 @@ class PracticeTestService:
         self._session = session
         self._openai_svc = openai_svc
 
+    def get_session(self):
+        return self._session
+
     def get_response(self, response_id: int) -> Optional[AIResponse]:
         query = select(PracticeTestEntity).filter(
             PracticeTestEntity.resource_id == response_id
