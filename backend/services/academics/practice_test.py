@@ -45,7 +45,7 @@ class PracticeTestService:
     def delete_response(self, resource_id: int) -> bool:
         entity = self._session.get(PracticeTestEntity, resource_id)
         if entity is None:
-            return None
+            return False
         else:
             self._session.delete(entity)
             self._session.commit()

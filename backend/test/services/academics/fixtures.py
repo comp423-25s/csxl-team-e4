@@ -10,7 +10,9 @@ from ....services.academics import TermService, CourseService, SectionService
 from ....services.academics.course_site import CourseSiteService
 from backend.services.academics.practice_test import PracticeTestService
 from backend.services.openai import OpenAIService
-
+from fastapi.testclient import TestClient
+from backend.api.academics.practice_test import api
+from fastapi import FastAPI
 
 __authors__ = ["Ajay Gandecha"]
 __copyright__ = "Copyright 2023"
@@ -61,3 +63,10 @@ def openai_svc_mock():
 def practice_test_svc(session: Session, openai_svc_mock: OpenAIService):
     """PracticeTestService fixture"""
     return PracticeTestService(session, openai_svc_mock)
+
+@pytest.fixture()
+def client(practice_test_svc: PracticeTestService):
+    """Fixture for setting up TestClient with mocked service."""
+    app = FastAPI()
+    app.include_router(api)
+    return TestClient(app)
