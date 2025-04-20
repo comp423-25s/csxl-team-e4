@@ -23,9 +23,8 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        
         this.childRoute =
-          this.route.firstChild?.snapshot.url[0].path || 'root';
+          this.route.firstChild?.snapshot.url[0]?.path || 'root';
       });
   }
 }

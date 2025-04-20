@@ -6,23 +6,21 @@
         <p class="timestamp">Generated just now</p>
 
         <h4>Prompt</h4>
-        <p>{{ testData.prompt }}</p>
+        <p>{{ testData.user_prompt }}</p>
 
         <h4>Topics</h4>
         <ul>
-          @for (topic of testData.topics; track topic) {
-            <li>{{ topic }}</li>
-          }
+          <li>⚠️ Topics not available (unless backend adds them)</li>
         </ul>
 
         <h4>Format</h4>
-        <p>{{ testData.format }}</p>
+        <p>⚠️ Format not available (unless backend adds it)</p>
       </div>
     </div>
 
     <div class="right-column">
       <div class="test-preview">
-        <pre>{{ testData.test }}</pre>
+        <pre>{{ testData.test_contents }}</pre> <!-- replace this with a pdf display. -->
       </div>
       <button mat-raised-button class="download-button">Download</button>
     </div>

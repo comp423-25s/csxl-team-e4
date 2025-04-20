@@ -7,8 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { FormArray, FormControl } from '@angular/forms'; 
-import { PracticeTestService } from '../../../../../services/practice-test.service';
+import { FormArray, FormBuilder } from '@angular/forms'; 
 import { PracticeTestFormService } from '../../../../../services/practice-test-form.service';
 import { FormsModule } from '@angular/forms';
 import { ResourceService, Resource } from 'src/app/services/resource.service';
@@ -19,7 +18,6 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
-import { RippleRef } from '@angular/material/core';
 
 @Component({
   selector: 'app-selection',
@@ -42,9 +40,9 @@ export class SelectionComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private practiceTestService: PracticeTestService,
     private practiceTestFormService: PracticeTestFormService,
-    private resourceService: ResourceService
+    private resourceService: ResourceService,
+    private fb: FormBuilder
   ) {
     // Simplified — no more dynamic course_id
     this.resourceService.getResources().subscribe({
@@ -62,22 +60,21 @@ export class SelectionComponent {
   form = this.practiceTestFormService.getForm();
   resources = signal<Resource[]>([]);
 
-  get materialArray(): FormArray {
-    return this.form.get('material') as FormArray;
+  get resource_ids(): FormArray {
+    return this.form.get('resource_ids') as FormArray;
   }
-
-  toggleSelect(id: number) {
-    const materials = this.materialArray;
-    const index = materials.value.indexOf(id);
-    if (index === -1) {
-      materials.push(new FormControl(id));
-    } else {
-      materials.removeAt(index);
-    }
-  }
-
   isSelected(id: number): boolean {
-    return this.materialArray?.value?.includes(id) ?? false;
+    return this.resource_ids?.value?.includes(id) ?? false;
+  }
+
+  toggleSelect(id: number) {;
+    const ids = this.form.get('resource_ids') as FormArray;
+    const index = ids.value.indexOf(id);
+    if (index === -1) {
+      ids.push(this.fb.control(id));
+    } else {
+      ids.removeAt(index);
+    }
   }
 
   readonly isResultPage = signal(false);
@@ -106,24 +103,6 @@ export class SelectionComponent {
         this.resources.set(this.resources().filter(r => r.id !== item.id));
       },
       error: () => alert('Delete failed.')
-    });
-  }
-
-  generateNewTest() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const payload = this.form.value;
-
-    this.practiceTestService.generateTest(payload).subscribe({
-      next: (res) => {
-        const generatedId = res.response_id;
-        this.practiceTestFormService.resetForm();
-        this.router.navigate(['/my-courses/course/practice/generate-test/result', generatedId]);
-      },
-      error: () => alert('Failed to generate test.')
     });
   }
 
