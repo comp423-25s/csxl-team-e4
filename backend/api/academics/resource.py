@@ -12,8 +12,11 @@ api = APIRouter(
 
 @api.get("/", response_model=list[Resource])
 def get_resources(
-    svc: Annotated[ResourceService, Depends()]
+    svc: Annotated[ResourceService, Depends()],
+    course_id: Optional[str] = None
 ):
+    if course_id:
+        return svc.get_resources_by_course_id(course_id)
     return svc.get_all_resources()
 
 @api.delete("/{resource_id}")
