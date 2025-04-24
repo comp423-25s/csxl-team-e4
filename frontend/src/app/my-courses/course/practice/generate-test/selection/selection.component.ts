@@ -7,16 +7,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { FormArray, FormBuilder } from '@angular/forms'; 
+import { FormArray, FormBuilder } from '@angular/forms';
 import { PracticeTestFormService } from '../../../../../services/practice-test-form.service';
 import { FormsModule } from '@angular/forms';
 import { ResourceService, Resource } from 'src/app/services/resource.service';
 
-import { 
+import {
   ActivatedRoute,
   NavigationEnd,
   Router,
-  RouterModule,
+  RouterModule
 } from '@angular/router';
 
 @Component({
@@ -32,7 +32,8 @@ import {
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule],
+    MatCardModule
+  ],
   templateUrl: './selection.component.html',
   styleUrl: './selection.component.css'
 })
@@ -44,8 +45,9 @@ export class SelectionComponent {
     private resourceService: ResourceService,
     private fb: FormBuilder
   ) {
+    const course_id = this.route.snapshot.params['course_site_id'];
     // Simplified — no more dynamic course_id
-    this.resourceService.getResources().subscribe({
+    this.resourceService.getResources(course_id).subscribe({
       next: (res) => this.resources.set(res),
       error: () => alert('Failed to load resources.')
     });
@@ -56,18 +58,18 @@ export class SelectionComponent {
       }
     });
   }
-
   form = this.practiceTestFormService.getForm();
   resources = signal<Resource[]>([]);
 
   get resource_ids(): FormArray {
     return this.form.get('resource_ids') as FormArray;
   }
+
   isSelected(id: number): boolean {
     return this.resource_ids?.value?.includes(id) ?? false;
   }
 
-  toggleSelect(id: number) {;
+  toggleSelect(id: number) {
     const ids = this.form.get('resource_ids') as FormArray;
     const index = ids.value.indexOf(id);
     if (index === -1) {
@@ -100,7 +102,7 @@ export class SelectionComponent {
   deleteMaterial(item: Resource) {
     this.resourceService.deleteResource(item.id).subscribe({
       next: () => {
-        this.resources.set(this.resources().filter(r => r.id !== item.id));
+        this.resources.set(this.resources().filter((r) => r.id !== item.id));
       },
       error: () => alert('Delete failed.')
     });

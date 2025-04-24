@@ -68,7 +68,6 @@ with Session(engine) as session:
     hiring_data.insert_fake_data(session)
     article_data.insert_fake_data(session)
     resource_data.insert_fake_resources(session, "backend/sample_pdfs")
-
     practice_test_data.insert_fake_data(session)
 
     # Commit changes to the database
