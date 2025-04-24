@@ -123,6 +123,14 @@
     justify-content: center;
     margin-top: 1rem;
   }
+  .generate-button button {
+    transition: background-color 0.2s ease;
+  }
+  
+  .generate-button button:active {
+    background-color: #a186e7 !important;
+  }
+  
   
   /* Style the button inside */
   .generate-button button {

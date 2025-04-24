@@ -35,3 +35,14 @@ class ResourceService:
         return self._session.scalars(query).one_or_none()
 
 
+    def create_new_resource(self, title: str, file_name: str, course_id: str, file_blob: bytes):
+        new_resource = ResourceEntity(
+            title=title,
+            file_name=file_name,
+            course_id=course_id,
+            file_data=file_blob
+        )
+        self._session.add(new_resource)
+        self._session.commit()
+        self._session.refresh(new_resource)
+        return new_resource

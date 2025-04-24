@@ -26,6 +26,8 @@ import { GenerateTestComponent } from './course/practice/generate-test/generate-
 import { GenerateTestResultComponent } from './course/practice/generate-test/result/generate-test-result.component';
 import { SelectionComponent } from './course/practice/generate-test/selection/selection.component';
 import { InputComponent } from './course/practice/generate-test/input/input.component';
+import { UploadComponent } from './course/practice/upload/upload.component';
+import { ViewResourcesComponent } from './course/practice/upload/view-resources/view-resources.component';
 
 const routes: Routes = [
   MyCoursesPageComponent.Route,
@@ -68,6 +70,16 @@ const routes: Routes = [
           {
             path: 'result/:id',
             component: GenerateTestResultComponent
+          }
+        ]
+      },
+      {
+        path: 'practice/upload',
+        component: UploadComponent,
+        children: [
+          {
+            path: 'view-resources',
+            component: ViewResourcesComponent
           }
         ]
       }

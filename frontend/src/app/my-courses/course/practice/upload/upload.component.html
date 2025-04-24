@@ -1,0 +1,51 @@
+<div class ="container">
+    <mat-pane>
+        <mat-card-header id="pane-header">
+            <mat-card-title>Upload Resource</mat-card-title>
+        </mat-card-header>
+        <mat-divider class="section-divider"></mat-divider>
+
+
+        <mat-card-content>
+            <form [formGroup]="uploadForm">
+              <mat-form-field class="title-box" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput placeholder="Enter resource title" formControlName="title" />
+              </mat-form-field>
+          
+              <div class="upload-box" (click)="fileInput.click()">
+                <div class="upload-label">📁 Choose a PDF file (Ensure file name has no special characters)</div>
+                <div class="upload-input-wrapper">
+                  <input
+                    #fileInput
+                    type="file"
+                    accept="application/pdf"
+                    (click)="$event.stopPropagation()"
+                    (change)="onFileSelected($event)"
+                  />
+                </div>
+              </div>
+          
+              <div class="button-wrapper">
+                <button
+                  mat-raised-button
+                  class="upload-button"
+                  (click)="upload()"
+                >
+                  Upload
+                </button>
+                <button
+                  mat-raised-button
+                  class="upload-button"
+                  [routerLink]="['/course', courseSiteId(), 'practice']"
+                >
+                  Practice
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+          
+    </mat-pane>
+</div>
+
+<router-outlet></router-outlet>

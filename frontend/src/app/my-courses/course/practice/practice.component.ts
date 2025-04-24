@@ -21,17 +21,6 @@ import { GenerateTestComponent } from './generate-test/generate-test.component';
 })
 export class PracticeComponent implements OnInit {
   /** Route information to be used in the routing module */
-  public static Route = {
-    path: 'practice',
-    title: 'course',
-    component: PracticeComponent,
-    children: [
-      {
-        path: 'generate',
-        component: GenerateTestComponent
-      }
-    ]
-  };
 
   isInsideGenerate = false;
 
@@ -49,5 +38,8 @@ export class PracticeComponent implements OnInit {
 
   goToGenerateTest() {
     this.router.navigate(['generate'], { relativeTo: this.route });
+  }
+  goToUpload() {
+    this.router.navigate(['upload'], { relativeTo: this.route });
   }
 }
