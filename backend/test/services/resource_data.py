@@ -16,7 +16,12 @@ resources = [
 def insert_fake_resources(session: Session, pdf_dir: str = None, course_id: str = "comp110"):
     session.query(ResourceEntity).delete()
     pdf_dir = pdf_dir or "backend/sample-pdfs"
-    for r in resources:
+    
+    for index, r in enumerate(resources):
+        # Check if the current resource is the last one in the list
+        if index == len(resources) - 1:
+            course_id = "comp210"  # Set course_id to 'comp210' for the last resource
+
         full_path = os.path.join(pdf_dir, r.file_name)
         if not os.path.exists(full_path):
             print(f"Missing file: {r.file_name}")
@@ -34,4 +39,4 @@ def insert_fake_resources(session: Session, pdf_dir: str = None, course_id: str 
         session.add(entity)
 
     session.commit()
-    print("Inserted resource data for COMP110.")
+    print(f"Inserted resource data for {course_id}.")
