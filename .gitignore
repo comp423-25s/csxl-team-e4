@@ -6,5 +6,3 @@ deploy_key*
 .env
 .DS_Store
 .coverage
-*.out
-*.pdf
