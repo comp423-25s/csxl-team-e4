@@ -18,6 +18,8 @@ import { HttpClient } from '@angular/common/http';
 export class GenerateTestResultComponent implements OnInit {
   testData: any = null;
   isLoading = true;
+  downloadUrl: string | null = null;
+  resourceId!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,17 +27,41 @@ export class GenerateTestResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.resourceId = this.route.snapshot.paramMap.get('id')!;
     this.http
-      .get(`/api/academics/practice_test/retrieve_response/${id}`)
+      .get(`/api/academics/practice_test/retrieve_response/${this.resourceId}`)
       .subscribe({
         next: (data) => {
           this.testData = data;
           this.isLoading = false;
+          this.loadPdfPreview();
         },
         error: () => {
           alert('Failed to load test result.');
           this.isLoading = false;
+        }
+      });
+  }
+
+  loadPdfPreview() {
+    this.http
+      .get(`/api/academics/practice_test/generate_pdf/${this.resourceId}`, {
+        responseType: 'blob'
+      })
+      .subscribe({
+        next: (blob) => {
+          const pdfUrl = URL.createObjectURL(blob);
+          this.downloadUrl = pdfUrl;
+
+          const iframe = document.getElementById(
+            'pdf-preview'
+          ) as HTMLIFrameElement;
+          if (iframe) {
+            iframe.src = pdfUrl;
+          }
+        },
+        error: () => {
+          alert('Failed to generate PDF');
         }
       });
   }

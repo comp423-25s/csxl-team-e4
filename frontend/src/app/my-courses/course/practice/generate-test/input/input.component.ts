@@ -88,7 +88,12 @@ export class InputComponent {
       this.form.markAllAsTouched();
       return;
     }
-    const payload = this.form.value;
+    const payload = {
+      ...this.form.value,
+      resource_ids: this.form.value.resource_ids.filter(
+        (id: number) => id !== null && id !== undefined
+      )
+    };
     this.practiceTestService.generateTest(payload).subscribe({
       next: (res) => {
         this.practiceTestFormService.resetForm();

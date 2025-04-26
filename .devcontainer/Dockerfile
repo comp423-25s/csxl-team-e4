@@ -57,6 +57,8 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
     && unlink /usr/bin/python3 \
     && ln -s /usr/bin/python3.12 /usr/bin/python3
 
+RUN apt-get update && apt-get install --yes texlive-latex-base
+
 # Use a non-root user per https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
 ARG USERNAME=vscode
 ARG USER_UID=1000
