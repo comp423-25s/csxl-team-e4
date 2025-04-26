@@ -13,7 +13,14 @@
      
     }
   }
-
+  
+  .ta-check {
+    color: green;
+    font-size: 18px;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  
   .scrollable-resources {
     height: 370px;
     overflow-y: auto;

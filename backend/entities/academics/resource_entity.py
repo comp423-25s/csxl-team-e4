@@ -1,5 +1,5 @@
 from typing import Self
-from sqlalchemy import ForeignKey, Integer, LargeBinary, String
+from sqlalchemy import ForeignKey, Integer, LargeBinary, String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.entities.academics.course_entity import CourseEntity
@@ -20,6 +20,7 @@ class ResourceEntity(EntityBase):
 
     # Unique ID for the resource
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    ta_upload: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     title: Mapped[str] = mapped_column(String, nullable=False)
     file_name: Mapped[str] = mapped_column(String, nullable=False)
     file_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
@@ -32,6 +33,7 @@ class ResourceEntity(EntityBase):
             id=self.id,
             title=self.title,
             file_name=self.file_name,
+            ta_upload=self.ta_upload
 
 
 
