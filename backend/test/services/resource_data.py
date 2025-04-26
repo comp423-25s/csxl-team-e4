@@ -4,13 +4,13 @@ from sqlalchemy.orm import Session
 import os
 
 resources = [
-    Resource(title="Variables and Data Types", file_name="variables.pdf"),
-    Resource(title="Conditionals and Booleans", file_name="conditionals.pdf"),
-    Resource(title="Loops in Python", file_name="loops.pdf"),
-    Resource(title="Functions in Python", file_name="functions.pdf"),
-    Resource(title="Lists and Dictionaries", file_name="lists_and_dicts.pdf"),
-    Resource(title="String Manipulation", file_name="strings.pdf"),
-    Resource(title="Error Handling", file_name="error_handling.pdf"),
+    Resource(title="Variables and Data Types", file_name="variables.pdf", ta_upload=False),
+    Resource(title="Conditionals and Booleans", file_name="conditionals.pdf", ta_upload=False),
+    Resource(title="Loops in Python", file_name="loops.pdf", ta_upload=False),
+    Resource(title="Functions in Python", file_name="functions.pdf", ta_upload=False),
+    Resource(title="Lists and Dictionaries", file_name="lists_and_dicts.pdf", ta_upload=False),
+    Resource(title="String Manipulation", file_name="strings.pdf", ta_upload=False),
+    Resource(title="Error Handling", file_name="error_handling.pdf", ta_upload=True),
 ]
 
 def insert_fake_resources(session: Session, pdf_dir: str = None, course_id: str = "comp110"):
