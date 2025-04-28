@@ -23,5 +23,9 @@ class AIResponse(BaseModel):
     instructor_approved: bool = False
 
 
+class LatexRequest(BaseModel):
+    latex_str: str
+
+
 class OpenAPIResponse(BaseModel):
     test: str

@@ -18,7 +18,11 @@ export class PracticeTestService {
     return this.http.get(`${this.baseURL}/retrieve_response/${testID}`);
   }
 
-  generateTest(data: { prompt: string; formats: string[], resource_ids: number[] }) {
+  generateTest(data: {
+    prompt: string;
+    formats: string[];
+    resource_ids: number[];
+  }) {
     return this.http.post<GenerateTestResponse>(
       `${this.baseURL}/generate_test`,
       {
@@ -27,5 +31,12 @@ export class PracticeTestService {
         resource_ids: data.resource_ids
       }
     );
+  }
+
+  downloadPdf(resourceId: number): Observable<Blob> {
+    const url = `/api/academics/practice_test/generate_pdf/${resourceId}`;
+    return this.http.get(url, {
+      responseType: 'blob'
+    });
   }
 }
