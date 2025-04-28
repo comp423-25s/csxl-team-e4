@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class PracticeTestFormService {
   form: FormGroup;
 
-  // We inject the form builder service into input
+  // We inject the form builder service into input. Form is accessed across multiple components.
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       resource_ids: this.fb.array([], Validators.required),

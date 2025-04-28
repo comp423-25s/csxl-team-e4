@@ -8,7 +8,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
   imports: [RouterOutlet, SharedModule],
   templateUrl: './generate-test.component.html',
-  styleUrl: './generate-test.component.css'
 })
 export class GenerateTestComponent {
   constructor(

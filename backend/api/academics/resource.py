@@ -1,5 +1,6 @@
 from typing import Annotated, Optional
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from pytest import Session
 from backend.models.academics.resource import Resource
 from backend.services.academics.resource import ResourceService
 from fastapi.responses import StreamingResponse
@@ -43,3 +44,22 @@ def download_resource(
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={resource.file_name}"}
     )
+
+@api.post("/upload")
+async def upload_resource(
+    svc: Annotated[ResourceService, Depends()],
+    title: str = Form(...),
+    file_name: str = Form(...),
+    course_id: str = Form(...),
+    file: UploadFile = File(...)
+):
+    file_data = await file.read()
+
+    svc.create_new_resource(
+        title=title,
+        file_name=file_name,
+        course_id=course_id,
+        file_blob=file_data
+    )
+
+    return {"message": "Upload successful"}
