@@ -6,3 +6,4 @@ class Resource(BaseModel):
     id: Optional[int] = None
     title: str
     file_name: str
+    ta_upload: bool

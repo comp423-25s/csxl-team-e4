@@ -18,6 +18,9 @@ import {
   Router,
   RouterModule
 } from '@angular/router';
+import { Profile, ProfileService } from 'src/app/profile/profile.service';
+import { Observable } from 'rxjs';
+import { PermissionService } from 'src/app/permission.service';
 
 @Component({
   selector: 'app-selection',
@@ -38,15 +41,22 @@ import {
   styleUrl: './selection.component.css'
 })
 export class SelectionComponent {
+  public adminPermission$: Observable<boolean>;
+  profile?: Profile | undefined;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private practiceTestFormService: PracticeTestFormService,
+    protected permission: PermissionService,
     private resourceService: ResourceService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private profileService: ProfileService
   ) {
+    this.profileService.profile$.subscribe((profile) => {
+      this.profile = profile ?? undefined;
+    });
+    this.adminPermission$ = this.permission.check('admin.view', 'admin/');
     const course_id = this.route.snapshot.params['course_site_id'];
-    // Simplified — no more dynamic course_id
     this.resourceService.getResources(course_id).subscribe({
       next: (res) => this.resources.set(res),
       error: () => alert('Failed to load resources.')
@@ -100,12 +110,16 @@ export class SelectionComponent {
   }
 
   deleteMaterial(item: Resource) {
-    this.resourceService.deleteResource(item.id).subscribe({
-      next: () => {
-        this.resources.set(this.resources().filter((r) => r.id !== item.id));
-      },
-      error: () => alert('Delete failed.')
-    });
+    if (item.ta_upload && this.profile && this.profile.last_name == 'Student') {
+      alert("You're not allowed to delete TA materials.");
+    } else {
+      this.resourceService.deleteResource(item.id).subscribe({
+        next: () => {
+          this.resources.set(this.resources().filter((r) => r.id !== item.id));
+        },
+        error: () => alert('Delete failed.')
+      });
+    }
   }
 
   goToInputPage() {

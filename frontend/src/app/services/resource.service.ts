@@ -6,6 +6,7 @@ export interface Resource {
   id: number;
   title: string;
   file_name: string;
+  ta_upload: Boolean;
 }
 
 @Injectable({

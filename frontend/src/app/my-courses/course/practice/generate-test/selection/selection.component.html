@@ -27,7 +27,11 @@
                         <button mat-icon-button (click)="toggleSelect(item.id)">
                           <mat-icon>{{ isSelected(item.id) ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
                         </button>
-                        <strong class="title">{{ item.title }}</strong>
+                        <strong class="title">{{ item.title }}
+                          @if (item.ta_upload) {
+                          <mat-icon class="ta-check">check</mat-icon>
+                        }
+                      </strong>
                       </div>
   
                       
