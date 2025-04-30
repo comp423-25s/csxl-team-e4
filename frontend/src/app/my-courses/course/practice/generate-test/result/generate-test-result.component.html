@@ -3,10 +3,17 @@
     <div class="left-column">
       <div class="summary-card">
         <h3>Practice Test #{{ testData.response_id }}</h3>
-        <p class="timestamp">Generated just now</p>
-
+        <p class="timestamp">Generated at {{ testData.created_at | date:'medium' }} </p>
+        <br>
         <h4>Prompt</h4>
-        <p>{{ testData.user_prompt }}</p>
+        <p>{{ testData.requested_prompt || 'No prompt available' }}</p>
+        <br>
+        <h4>Resources</h4>
+        <ol>
+          @for (resource of testData.resources; track resource;) {
+            <li>{{ resource }}</li>
+          }
+        </ol>
       </div>
     </div>
 

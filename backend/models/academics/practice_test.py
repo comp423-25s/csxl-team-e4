@@ -17,8 +17,10 @@ class AIResponse(BaseModel):
     response_id: int
     user: str
     course: str
+    requested_prompt: str
     user_prompt: str
     test_contents: str
+    resources: List[str]
     created_at: datetime = datetime.now()
     instructor_approved: bool = False
 

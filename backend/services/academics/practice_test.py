@@ -59,8 +59,9 @@ class PracticeTestService:
         )
         user_prompt = f"""
         Make sure you include the full LaTex boilerplate in your response.
+        Do not use special packages like enumitem.
         The test should have the following format(s): {format_string}.
-        Generate a test with the following instructions: {req.prompt}.
+        Generate a short test with the following instructions: {req.prompt}.
         The test should factor in information from the following resources: {resource_txt}
 
         """
@@ -74,10 +75,12 @@ class PracticeTestService:
         practice_test = PracticeTestEntity(
             user="Sally Student",
             course="COMP 110",
+            requested_prompt=req.prompt,
             user_prompt=user_prompt,
             test_contents=ai_generated_test.test,
             created_at=datetime.now(),
             instructor_approved=False,
+            resources=self.get_resource_names(req.resource_ids)
         )
 
         self._session.add(practice_test)
@@ -112,6 +115,12 @@ class PracticeTestService:
             text = self.extract_text_from_blob(resource.file_data)
             resource_text.append(f"=== {resource.title} ===\n{text}")
         return "\n\n".join(resource_text)
+
+    def get_resource_names(self, resource_ids: List[int]) -> List[str]:
+        selected = select(ResourceEntity).where(ResourceEntity.id.in_(resource_ids))
+        resources = self._session.scalars(selected).all()
+        
+        return [resource.title for resource in resources]
 
 
 

@@ -1,9 +1,9 @@
 from datetime import datetime
-from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean
+from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean, ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Enum as SQLAlchemyEnum
 from ..entity_base import EntityBase
-from typing import Self
+from typing import Self, List
 from ...models.academics.practice_test import AIRequest, AIResponse, OpenAPIResponse
 
 
@@ -24,6 +24,8 @@ class PracticeTestEntity(EntityBase):
     # Course associated with the practice test
     course: Mapped[str] = mapped_column(String, nullable=False)
 
+    requested_prompt: Mapped[str] = mapped_column(Text, nullable=True) 
+
     # The prompt provided by the user to generate the test
     user_prompt: Mapped[str] = mapped_column(Text, nullable=False)
 
@@ -38,6 +40,11 @@ class PracticeTestEntity(EntityBase):
     instructor_approved: Mapped[bool] = mapped_column(
         Boolean, nullable=False, default=False
     )
+
+    resources: Mapped[List[String]] = mapped_column(
+        ARRAY(String), nullable=True, default=list
+    )
+
 
     # Method to convert from a draft or another model into an entity
     @classmethod
@@ -67,8 +74,10 @@ class PracticeTestEntity(EntityBase):
             response_id=self.resource_id,
             user=self.user,
             course=self.course,
+            requested_prompt=self.requested_prompt,
             user_prompt=self.user_prompt,
             test_contents=self.test_contents,
+            resources=self.resources,
             created_at=self.created_at,
             instructor_approved=self.instructor_approved,
         )
