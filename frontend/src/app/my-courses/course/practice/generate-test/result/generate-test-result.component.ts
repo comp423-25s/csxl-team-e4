@@ -4,11 +4,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-generate-test-result',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule],
   templateUrl: './generate-test-result.component.html',
   styleUrl: './generate-test-result.component.css',
   host: {
