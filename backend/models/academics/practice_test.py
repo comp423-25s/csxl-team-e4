@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 
@@ -17,8 +17,10 @@ class AIResponse(BaseModel):
     response_id: int
     user: str
     course: str
+    requested_prompt: Optional[str] = None
     user_prompt: str
     test_contents: str
+    resources: Optional[List[str]] = None
     created_at: datetime = datetime.now()
     instructor_approved: bool = False
 

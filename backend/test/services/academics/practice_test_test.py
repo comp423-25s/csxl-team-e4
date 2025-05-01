@@ -38,10 +38,12 @@ def test_get_response(practice_test_svc: PracticeTestService):
         response_id=1,
         user="Sally Student",
         course="COMP 110",
+        requested_prompt="Help",
         user_prompt="Practice Test",
         test_contents="Test Content",
         created_at=datetime.now(),
-        instructor_approved=False
+        instructor_approved=False,
+        resources=[]
     )
 
     mock_session.scalars.return_value.one_or_none.return_value = mock_entity
@@ -75,9 +77,11 @@ def test_delete_response(practice_test_svc: PracticeTestService):
         user="Sally Student",
         course="COMP 110",
         user_prompt="Practice Test",
+        requested_prompt="Help",
         test_contents="Test Content",
         created_at=datetime.now(),
-        instructor_approved=False
+        instructor_approved=False,
+        resources=[]
     )
 
     mock_session.scalars.return_value.one_or_none.return_value = mock_entity
@@ -98,10 +102,12 @@ def test_get_route(client: TestClient, practice_test_svc: PracticeTestService):
         response_id=1,
         user="Sally Student",
         course="COMP 110",
+        requested_prompt="Help",
         user_prompt="Practice Test",
         test_contents="Test Content",
         created_at=datetime.now(),
-        instructor_approved=False
+        instructor_approved=False,
+        resources=[]
     ))
     
     response = client.get("/api/academics/practice_test/retrieve_response/1")
@@ -118,10 +124,12 @@ def test_post_route(client: TestClient, practice_test_svc: PracticeTestService):
         response_id=1,
         user="Sally Student",
         course="COMP 110",
+        requested_prompt="Help",
         user_prompt="Practice Test",
         test_contents="Test Content",
         created_at=datetime.now(),
-        instructor_approved=False
+        instructor_approved=False,
+        resources=[]
     ))
     
     request_data = {"prompt": "Sample Question", "formats":["Multiple Choice"], "resource_ids": [1]}
