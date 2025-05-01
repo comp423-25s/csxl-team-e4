@@ -112,6 +112,22 @@ class PracticeTestService:
             text = self.extract_text_from_blob(resource.file_data)
             resource_text.append(f"=== {resource.title} ===\n{text}")
         return "\n\n".join(resource_text)
+    
+    def sanitize_latex(raw: str) -> str:
+        sanitized = raw
+
+        # Replace backticks used for code snippets
+        sanitized = sanitized.replace("`", "")
+
+        # Escape underscores that aren't already in math mode
+        sanitized = re.sub(r"(?<!\\)_", r"\_", sanitized)
+
+        # Ensure all lines are not breaking enumerate/envs
+        # Optional: Close open environments if needed
+        # For now, you can also just strip weird \n in the middle of environments
+        sanitized = sanitized.replace("\\n", "\n")
+
+        return sanitized
 
 
 
