@@ -9,9 +9,11 @@ from ....services import PermissionService
 from ....services.academics import TermService, CourseService, SectionService
 from ....services.academics.course_site import CourseSiteService
 from backend.services.academics.practice_test import PracticeTestService
+from backend.services.academics.resource import ResourceService
 from backend.services.openai import OpenAIService
 from fastapi.testclient import TestClient
 from backend.api.academics.practice_test import api
+from backend.api.academics.resource import api as resource_api
 from fastapi import FastAPI
 
 __authors__ = ["Ajay Gandecha"]
@@ -69,4 +71,17 @@ def client(practice_test_svc: PracticeTestService):
     """Fixture for setting up TestClient with mocked service."""
     app = FastAPI()
     app.include_router(api)
+    return TestClient(app)
+
+@pytest.fixture()
+def resource_svc(session: Session):
+    """ResourceService fixture"""
+    return ResourceService(session)
+
+@pytest.fixture()
+def resource_client(resource_svc: ResourceService):
+    """Fixture for setting up TestClient with mocked service."""
+    app = FastAPI()
+    app.include_router(resource_api)
+    app.dependency_overrides[ResourceService] = lambda: resource_svc
     return TestClient(app)

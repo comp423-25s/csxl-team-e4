@@ -34,7 +34,4 @@ class ResourceEntity(EntityBase):
             title=self.title,
             file_name=self.file_name,
             ta_upload=self.ta_upload
-
-
-
         )

@@ -10,7 +10,10 @@ from fastapi import Body
 from html import unescape
 import re
 
-api = APIRouter(prefix="/api/academics/practice_test")
+api = APIRouter(
+    prefix="/api/academics/practice_test",
+    tags=["Academics"]
+)
 
 
 @api.get(
@@ -36,22 +39,6 @@ def delete_response(response_id: int, svc: Annotated[PracticeTestService, Depend
     return f"Response {response_id} deleted successfully"
 
 
-def sanitize_latex(raw: str) -> str:
-    sanitized = raw
-
-    # Replace backticks used for code snippets
-    sanitized = sanitized.replace("`", "")
-
-    # Escape underscores that aren't already in math mode
-    sanitized = re.sub(r"(?<!\\)_", r"\_", sanitized)
-
-    # Ensure all lines are not breaking enumerate/envs
-    # Optional: Close open environments if needed
-    # For now, you can also just strip weird \n in the middle of environments
-    sanitized = sanitized.replace("\\n", "\n")
-
-    return sanitized
-
 
 @api.get("/generate_pdf/{resource_id}", tags=["Academics"])
 def generate_pdf_from_db(
@@ -62,7 +49,7 @@ def generate_pdf_from_db(
     if not test or not test.test_contents:
         raise HTTPException(status_code=404, detail="LaTeX content not found")
 
-    latex_str = sanitize_latex(test.test_contents)
+    latex_str = svc.sanitize_latex(test.test_contents)
 
     with tempfile.TemporaryDirectory() as tmpdir:
         tex_path = os.path.join(tmpdir, "document.tex")
