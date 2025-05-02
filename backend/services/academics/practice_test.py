@@ -15,6 +15,8 @@ from sqlalchemy.orm import Session as SQLAlchemySession
 from backend.entities.academics.practice_test_entity import PracticeTestEntity
 from sqlalchemy import select
 from datetime import datetime
+import re
+
 
 
 class PracticeTestService:
@@ -116,7 +118,7 @@ class PracticeTestService:
             resource_text.append(f"=== {resource.title} ===\n{text}")
         return "\n\n".join(resource_text)
     
-    def sanitize_latex(raw: str) -> str:
+    def sanitize_latex(self, raw: str) -> str:
         sanitized = raw
 
         # Replace backticks used for code snippets
