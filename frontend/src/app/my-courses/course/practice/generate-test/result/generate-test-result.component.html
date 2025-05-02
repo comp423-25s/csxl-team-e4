@@ -1,7 +1,7 @@
 @if (!isLoading && testData) {
   <div class="container">
     <div class="left-column">
-      <div class="summary-card">
+      <mat-card class="summary-card">
         <h3>Practice Test #{{ testData.response_id }}</h3>
         <p class="timestamp">Generated at {{ testData.created_at | date:'medium' }} </p>
         <br>
@@ -9,18 +9,19 @@
         <p>{{ testData.requested_prompt || 'No prompt available' }}</p>
         <br>
         <h4>Resources</h4>
-        <ol>
+        <mat-list>
           @for (resource of testData.resources; track resource;) {
-            <li>{{ resource }}</li>
+            <mat-list-item>{{ resource }}</mat-list-item>
           }
-        </ol>
-      </div>
+        </mat-list>
+
+      </mat-card>
     </div>
 
     <div class="right-column">
-      <div class="test-preview">
+      <mat-card class="test-preview">
         <iframe id="pdf-preview" width="100%" height="600px" style="border-radius: 12px; border: none;"></iframe>
-      </div>
+      </mat-card>
 
       @if (downloadUrl) {
         <a [href]="downloadUrl" target="_blank" download="practice-test.pdf">
