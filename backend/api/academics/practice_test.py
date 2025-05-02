@@ -10,7 +10,10 @@ from fastapi import Body
 from html import unescape
 import re
 
-api = APIRouter(prefix="/api/academics/practice_test")
+api = APIRouter(
+    prefix="/api/academics/practice_test",
+    tags=["Academics"]
+)
 
 
 @api.get(
