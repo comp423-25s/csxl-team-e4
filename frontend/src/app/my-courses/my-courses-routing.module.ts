@@ -21,6 +21,7 @@ import { OfficeHoursQueueComponent } from './course/office-hours/office-hours-qu
 import { OfficeHoursGetHelpComponent } from './course/office-hours/office-hours-get-help/office-hours-get-help.component';
 import { SettingsComponent } from './course/settings/settings.component';
 import { OfficeHoursEditorComponent } from './course/office-hours/office-hours-editor/office-hours-editor.component';
+
 import { GenerateTestComponent } from './course/practice/generate-test/generate-test.component';
 
 import { GenerateTestResultComponent } from './course/practice/generate-test/result/generate-test-result.component';
@@ -28,6 +29,7 @@ import { SelectionComponent } from './course/practice/generate-test/selection/se
 import { InputComponent } from './course/practice/generate-test/input/input.component';
 import { UploadComponent } from './course/practice/upload/upload.component';
 import { ViewResourcesComponent } from './course/practice/upload/view-resources/view-resources.component';
+import { StatisticsComponent } from './course/statistics/statistics.component';
 
 const routes: Routes = [
   MyCoursesPageComponent.Route,
@@ -82,7 +84,8 @@ const routes: Routes = [
             component: ViewResourcesComponent
           }
         ]
-      }
+      },
+      StatisticsComponent.Route
     ]
   }
 ];
