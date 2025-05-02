@@ -8,7 +8,6 @@ import tempfile
 from fastapi.responses import FileResponse
 from fastapi import Body
 from html import unescape
-import re
 
 api = APIRouter(
     prefix="/api/academics/practice_test",
