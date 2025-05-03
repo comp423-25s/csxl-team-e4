@@ -57,7 +57,14 @@ class PracticeTestService:
         resource_txt = self.resources_to_text(req.resource_ids)
         format_string = ", ".join(req.formats)
         system_prompt = (
-            "You are a helpful teaching assistant generating practice test questions using the provided user input. Output the questions in clean LaTeX format, along with an answer key section at the end. "
+            f"""You are a helpful teaching assistant generating practice test questions using the provided user input. Output the questions in clean LaTeX format, along with an answer key section at the end.
+            You will be asked to output a latex code to create a pdf for the practice exam,
+            Write LaTeX code that compiles successfully with pdflatex and includes the full document structure with \documentclass, \\begin\{{document}}, and \\end{{document}}. Do not include unbalanced braces or LaTeX commands that cause errors.
+            Do not nest LaTeX commands like \\texttt{{\\texttt{{...}}}} and avoid unclosed environments. Only use \\texttt{{}} for short inline code.
+            Don't use a line break outside of a paragraph or list.
+            Don't use \\item outside of a enumerate or itemize environment.
+            For multiline code blocks in LaTeX, only use \\begin{{verbatim}}...\end{{verbatim}} without wrapping it in \\texttt{{}} or any other command.
+            """
         )
         user_prompt = f"""
         Make sure you include the full LaTex boilerplate in your response. Including the document class, packages, and begin/end document commands.
